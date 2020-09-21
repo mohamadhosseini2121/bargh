@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activity.RegisterFragment"
+    tools:context=".view.fragment.RegisterFragment"
     android:padding="@dimen/standard_margin_4x">
 
     <!-- Register progress -->

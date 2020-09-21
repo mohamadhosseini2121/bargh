@@ -1,4 +1,4 @@
-package com.example.bargh.view.activity;
+package com.example.bargh.view.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

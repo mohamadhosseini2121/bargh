@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/standard_margin_4x"
     android:paddingRight="@dimen/standard_margin_4x"
     android:paddingBottom="@dimen/standard_margin_4x"
-    tools:context=".view.activity.LoginFragment">
+    tools:context=".view.fragment.LoginFragment">
 
     <!-- Login progress -->
     <ProgressBar

@@ -1,4 +1,4 @@
-package com.example.bargh.view.activity;
+package com.example.bargh.view.fragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
