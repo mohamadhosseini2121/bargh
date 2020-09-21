@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    android:layout_marginEnd="@dimen/standard_margin"
+    android:layout_marginStart="@dimen/standard_margin"
+    android:layout_marginBottom="@dimen/standard_margin_half"
+    android:layout_marginTop="@dimen/standard_margin_half"
+    app:cardElevation="@dimen/standard_card_elevation"
+    app:cardCornerRadius="@dimen/standard_card_corner_radius">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/standard_margin">
+
+        <ImageView
+            android:id="@+id/img_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/tmp" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_product"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginStart="@dimen/standard_margin_half"
+            android:text="@string/item_product_name"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_font_size" />
+
+        <TextView
+            android:id="@+id/tv_name_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_product"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginStart="@dimen/standard_margin_half"
+            android:layout_toEndOf="@id/name"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/normal_font_size"
+            tools:text="اسم کالا در اینجا نوشته میشود" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name"
+            android:layout_marginTop="@dimen/standard_margin_half"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/item_product_price"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_font_size" />
+
+
+        <TextView
+            android:id="@+id/tv_price_products"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_name_product"
+            android:layout_marginTop="@dimen/standard_margin_half"
+            android:layout_marginStart="@dimen/standard_margin_half"
+            android:layout_toEndOf="@id/price"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/normal_font_size"
+            tools:text="قیمت کالا در اینجا نوشته میشود" />
+
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/price"
+            android:layout_marginTop="@dimen/standard_margin_half"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/item_product_info"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/normal_font_size" />
+
+
+        <TextView
+            android:id="@+id/tv_info_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/info"
+            android:layout_marginStart="@dimen/standard_margin_2x"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/small_font_size"
+            tools:text="در اینجا توضیحاتی در مورد کالا داده میشود که ممکنه به دلایلی ممکنه مفید باشه یا شایدم نباشه همینجوری چرت و پرتی اینجا بنویسی." />
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

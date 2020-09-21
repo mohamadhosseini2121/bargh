@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">اورژانس برق و تاسیسات رفسنجان</string>
+    <!-- Strings related to login -->
+    <string name="prompt_mobile_number_login">شماره تلفن همراه</string>
+    <string name="prompt_password">رمز عبور</string>
+    <string name="prompt_password2">تکرار رمز عبور</string>
+    <string name="action_sign_in">ورود</string>
+    <string name="action_sign_up">ثبت نام</string>
+    <string name="error_invalid_email">ایمیل وارد شده نادرست است</string>
+    <string name="error_invalid_password">رمز عبور باید حداقل 6 کارکتر باشد</string>
+    <string name="error_incorrect_password">رمز عبور نادرست است</string>
+    <string name="error_field_required">این فیلد خالی است</string>
+    <string name="error_invalid_mobile_number">شماره تلفن همراه وارد شده باید به صورت 09123456789 باشد</string>
+    <string name="error_not_a_user">کاربری با این تلفن همراه وجود ندارد</string>
+
+    <!-- Strings related to register -->
+    <string name="prompt_name">نام</string>
+    <string name="prompt_lastname">نام خانوادگی</string>
+    <string name="prompt_email">ایمیل</string>
+    <string name="prompt_mobile_number_register">شماره تلفن همراه</string>
+    <string name="prompt_usertype">نوع کاربر</string>
+    <string name="error_repassword">تکرار رمزعبور نادرست است</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="item_product_name">نام کالا:</string>
+    <string name="item_product_price">قیمت:</string>
+    <string name="item_product_info">توضیحات:</string>
+
+
+    <!-- navigation menu items -->
+    <string name="nav_menu_home">صفحه اصلی</string>
+    <string name="nav_menu_profile">پروفایل</string>
+    <string name="nav_menu_purchases">سوابق خرید</string>
+    <string name="nav_menu_about_us">درباره ما</string>
+    <string name="nav_menu_logout">خروج از حساب</string>
+
+
+    <string name="openNavDrawer">Navigation Drawer Open</string>
+    <string name="closeNavDrawer">Navigation Drawer Close</string>
+    <string name="no_repair_is_underway">در حال حاضر هیچ تعمیری در حال انجام نیست، برای درخواست انجام تعمیرات کلید + را بزنید</string>
+    <string name="service_item_status_title">وضعیت:</string>
+    <string name="service_item_type_title">نوع تعمیر:</string>
+    <string name="service_item_info_title">توضیحات:</string>
+
+
+</resources>
