@@ -9,18 +9,15 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.bargh.datamodel.Product;
 import com.example.bargh.datamodel.Service;
-import com.example.bargh.datamodel.User;
+import com.example.bargh.datamodel.Product;
+import com.example.bargh.datamodel.RequestedService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +34,8 @@ public class ApiService {
     private final String login_url = "http://192.168.1.10/bargh/Login.php";
     private final String register_url = "http://192.168.1.10/bargh/register.php";
     private final String getUserServices_url = "http://192.168.1.10/bargh/getUserServices.php";
+    private final String getAllServices_url = "http://192.168.1.10/bargh/getAllServices.php";
+
 
     private ApiService (Context context){
 
@@ -49,6 +48,26 @@ public class ApiService {
         if (instance == null)
             instance = new ApiService(context);
         return instance;
+    }
+
+
+    public void getAllServices (onGettingAllServices onGettingAllServices) {
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
+                getAllServices_url, null,
+                response -> {
+                    Log.d(TAG, "getAllServices: response:" + response);
+                    onGettingAllServices.onReceived(JsonParser.parsServicesJsonArray((JSONArray)response));
+                },
+
+                error -> Log.e(TAG, "onErrorResponse: " + error.toString() ));
+
+        request.setRetryPolicy(new DefaultRetryPolicy(18000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        Volley.newRequestQueue(Objects.requireNonNull(context)).add(request);
+
+
     }
 
 
@@ -189,10 +208,12 @@ public class ApiService {
 
     }
 
-
+    public interface onGettingAllServices {
+        void onReceived (List<Service> allServices);
+    }
 
     public interface OnGettingUserServices {
-        void onReceived (List<Service> rsp);
+        void onReceived (List<RequestedService> rsp);
     }
 
     public interface OnRegisterResponseReceived {

@@ -3,33 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.fragment.ServiceRequestFragment"
     android:background="@color/colorWhite"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layoutDirection="rtl">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
+        android:id="@+id/app_bar_service_request_frag"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:elevation="4dp">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar_service_request_frag"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:elevation="10dp"/>
-
+            android:layout_height="?attr/actionBarSize"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ListView
-        android:id="@+id/lv_service_type_selection"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_services_request_frag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/til_info"
-        android:layout_below="@id/app_bar"
-        android:layout_marginTop="@dimen/standard_margin_half"/>
+        android:layout_below="@id/app_bar_service_request_frag"
+        android:layout_marginTop="@dimen/standard_margin_half">
 
+    </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_info"
@@ -43,7 +44,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:text="توضیحات"/>
+            android:text="@string/service_request_frag_info_et"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/standard_margin"
-        android:text="مرحله بعد "
+        android:text="@string/service_request_frag_next_step_btn"
         android:layout_alignParentBottom="true"/>
 
 

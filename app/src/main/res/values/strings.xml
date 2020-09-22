@@ -42,6 +42,8 @@
     <string name="service_item_status_title">وضعیت:</string>
     <string name="service_item_type_title">نوع تعمیر:</string>
     <string name="service_item_info_title">توضیحات:</string>
+    <string name="service_request_frag_info_et">توضیحات</string>
+    <string name="service_request_frag_next_step_btn">مرحله بعد</string>
 
 
 </resources>

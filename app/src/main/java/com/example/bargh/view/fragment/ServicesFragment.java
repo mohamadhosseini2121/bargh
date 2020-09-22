@@ -13,17 +13,15 @@ import butterknife.ButterKnife;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.bargh.ApiService;
 import com.example.bargh.R;
-import com.example.bargh.adapter.ServicesAdapter;
-import com.example.bargh.datamodel.Service;
+import com.example.bargh.adapter.RequestedServicesAdapter;
+import com.example.bargh.datamodel.RequestedService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class ServicesFragment extends Fragment {
 
@@ -32,8 +30,8 @@ public class ServicesFragment extends Fragment {
     @BindView(R.id.tv_empty_data)
     TextView emptyTv;
 
-    private List<Service> services = new ArrayList<>();
-    private ServicesAdapter servicesAdapter;
+    private List<RequestedService> requestedServices = new ArrayList<>();
+    private RequestedServicesAdapter requestedServicesAdapter;
     private ApiService apiService;
     private View view;
 
@@ -52,10 +50,10 @@ public class ServicesFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false));
         apiService = ApiService.getInstance(requireContext());
-        servicesAdapter = new ServicesAdapter(requireContext(), services);
-        recyclerView.setAdapter(servicesAdapter);
+        requestedServicesAdapter = new RequestedServicesAdapter(requireContext(), requestedServices);
+        recyclerView.setAdapter(requestedServicesAdapter);
 
-        if (services.isEmpty()){
+        if (requestedServices.isEmpty()){
             recyclerView.setVisibility(View.GONE);
             emptyTv.setVisibility(View.VISIBLE);
         }else{
@@ -71,11 +69,11 @@ public class ServicesFragment extends Fragment {
 
         apiService.getUserServices("09024331673", new ApiService.OnGettingUserServices() {
             @Override
-            public void onReceived(List<Service> rsp) {
+            public void onReceived(List<RequestedService> rsp) {
                 if (rsp != null && !rsp.isEmpty()) {
-                    services.clear();
-                    services.addAll(rsp);
-                    servicesAdapter.notifyDataSetChanged();
+                    requestedServices.clear();
+                    requestedServices.addAll(rsp);
+                    requestedServicesAdapter.notifyDataSetChanged();
                     recyclerView.setVisibility(View.VISIBLE);
                     emptyTv.setVisibility(View.GONE);
                 }else {

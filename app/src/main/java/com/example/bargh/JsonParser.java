@@ -2,8 +2,9 @@ package com.example.bargh;
 
 import android.util.Log;
 
-import com.example.bargh.datamodel.Product;
 import com.example.bargh.datamodel.Service;
+import com.example.bargh.datamodel.Product;
+import com.example.bargh.datamodel.RequestedService;
 import com.example.bargh.datamodel.User;
 
 import org.json.JSONArray;
@@ -18,10 +19,8 @@ public class JsonParser {
 
     private static final String TAG = "JsonParser: ";
 
-    public static List<Service> parsUserServicesJsonArray (JSONArray jsonArray){
+    public static List<Service> parsServicesJsonArray (JSONArray jsonArray) {
 
-        if (jsonArray == null)
-            return null;
         List<Service> services = new ArrayList<>();
 
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -29,13 +28,8 @@ public class JsonParser {
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 Service service = new Service();
-                service.setType(jsonObject.getString("type"));
+                service.setName(jsonObject.getString("name"));
                 service.setInfo(jsonObject.getString("info"));
-                service.setDate(jsonObject.getString("date"));
-                service.setUser(jsonObject.getString("user"));
-                service.setState(jsonObject.getInt("state"));
-                service.setLat(jsonObject.getDouble("lat"));
-                service.setLng(jsonObject.getDouble("lng"));
 
                 services.add(service);
 
@@ -43,10 +37,38 @@ public class JsonParser {
                 e.printStackTrace();
             }
         }
-        Log.d(TAG, "parsUserServicesJsonArray: services: date of first item: " +
-                services.get(0).getDate() + " date of second item: " + services.get(1).getDate());
 
+        Log.d(TAG, "parsServicesJsonArray: service 0 name:" + services.get(0).getName());
         return services;
+    }
+
+    public static List<RequestedService> parsUserServicesJsonArray (JSONArray jsonArray){
+
+        List<RequestedService> requestedServices = new ArrayList<>();
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+
+            try {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                RequestedService requestedService = new RequestedService();
+                requestedService.setType(jsonObject.getString("type"));
+                requestedService.setInfo(jsonObject.getString("info"));
+                requestedService.setDate(jsonObject.getString("date"));
+                requestedService.setUser(jsonObject.getString("user"));
+                requestedService.setState(jsonObject.getInt("state"));
+                requestedService.setLat(jsonObject.getDouble("lat"));
+                requestedService.setLng(jsonObject.getDouble("lng"));
+
+                requestedServices.add(requestedService);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        Log.d(TAG, "parsUserServicesJsonArray: services: date of first item: " +
+                requestedServices.get(0).getDate() + " date of second item: " + requestedServices.get(1).getDate());
+
+        return requestedServices;
 
     }
 
