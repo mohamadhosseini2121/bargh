@@ -45,7 +45,7 @@
             android:id="@+id/et_info_service_request_frag"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:text="@string/service_request_frag_info_et"/>
+            android:hint="@string/service_request_frag_info_et"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

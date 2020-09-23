@@ -2,7 +2,6 @@ package com.example.bargh.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +61,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
     public class ProductsViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.tv_name_product)
+        @BindView(R.id.tv_name_product_detail)
         TextView nameTv;
         @BindView(R.id.tv_price_products)
         TextView priceTv;

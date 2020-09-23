@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl"
+            android:padding="@dimen/standard_margin">
+
+            <ImageView
+                android:id="@+id/img_product_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/app_bar_product_detail_frag"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/tmp" />
+
+            <TextView
+                android:id="@+id/name_title_product_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_product_detail"
+                android:layout_marginStart="@dimen/standard_margin_half"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:text="@string/item_product_name"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/normal_font_size" />
+
+            <TextView
+                android:id="@+id/tv_name_product_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_product_detail"
+                android:layout_marginStart="@dimen/standard_margin_half"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_toEndOf="@id/name_title_product_detail"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/normal_font_size"
+                tools:text="اسم کالا در اینجا نوشته میشود" />
+
+            <TextView
+                android:id="@+id/price_title_product_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/name_title_product_detail"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_margin_half"
+                android:text="@string/item_product_price"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/normal_font_size" />
+
+            <TextView
+                android:id="@+id/tv_price_products_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_name_product_detail"
+                android:layout_marginStart="@dimen/standard_margin_half"
+                android:layout_marginTop="@dimen/standard_margin_half"
+                android:layout_toEndOf="@id/price_title_product_detail"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/normal_font_size"
+                tools:text="قیمت کالا در اینجا نوشته میشود" />
+
+
+            <TextView
+                android:id="@+id/info_title_product_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/price_title_product_detail"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_margin_half"
+                android:text="@string/item_product_info"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/normal_font_size" />
+
+
+            <TextView
+                android:id="@+id/tv_info_product_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/info_title_product_detail"
+                android:layout_marginStart="@dimen/standard_margin_2x"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/normal_font_size"
+                tools:text="در اینجا توضیحاتی در مورد کالا داده میشود که ممکنه به دلایلی ممکنه مفید باشه یا شایدم نباشه همینجوری چرت و پرتی اینجا بنویسی." />
+
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar_product_detail_frag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:elevation="4dp">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar_product_detail_frag"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+        </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</ScrollView>

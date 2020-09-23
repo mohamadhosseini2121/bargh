@@ -21,8 +21,7 @@
     <string name="prompt_usertype">نوع کاربر</string>
     <string name="error_repassword">تکرار رمزعبور نادرست است</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="item_product_name">نام کالا:</string>
     <string name="item_product_price">قیمت:</string>
     <string name="item_product_info">توضیحات:</string>
@@ -36,14 +35,16 @@
     <string name="nav_menu_logout">خروج از حساب</string>
 
 
-    <string name="openNavDrawer">Navigation Drawer Open</string>
-    <string name="closeNavDrawer">Navigation Drawer Close</string>
     <string name="no_repair_is_underway">در حال حاضر هیچ تعمیری در حال انجام نیست، برای درخواست انجام تعمیرات کلید + را بزنید</string>
+
     <string name="service_item_status_title">وضعیت:</string>
     <string name="service_item_type_title">نوع تعمیر:</string>
     <string name="service_item_info_title">توضیحات:</string>
+
     <string name="service_request_frag_info_et">توضیحات</string>
     <string name="service_request_frag_next_step_btn">مرحله بعد</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

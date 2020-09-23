@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -13,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
 import com.example.bargh.ApiService;
 import com.example.bargh.R;
 import com.example.bargh.adapter.ServicesAdapter;
@@ -35,6 +38,8 @@ public class ServiceRequestFragment extends Fragment {
     AppBarLayout appBarLayout;
     @BindView(R.id.recycler_view_services_request_frag)
     RecyclerView recyclerView;
+    @BindView(R.id.btn_next_step)
+    Button nextStepBtn;
 
     private List<Service> services = new ArrayList<>();
 
@@ -50,6 +55,13 @@ public class ServiceRequestFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false));
         servicesAdapter = new ServicesAdapter(requireContext(), services);
         recyclerView.setAdapter(servicesAdapter);
+
+        nextStepBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_serviceRequestFragment_to_locationFragment);
+            }
+        });
 
         return view;
     }

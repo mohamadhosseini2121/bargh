@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_serviceRequestFragment"
             app:destination="@id/serviceRequestFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_productsDetailFragment"
+            app:destination="@id/productsDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -39,5 +42,18 @@
         android:id="@+id/serviceRequestFragment"
         android:name="com.example.bargh.view.fragment.ServiceRequestFragment"
         android:label="fragment_service_request"
-        tools:layout="@layout/fragment_service_request" />
+        tools:layout="@layout/fragment_service_request" >
+        <action
+            android:id="@+id/action_serviceRequestFragment_to_locationFragment"
+            app:destination="@id/locationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="com.example.bargh.view.fragment.LocationFragment"
+        android:label="fragment_location"
+        tools:layout="@layout/fragment_location" />
+    <fragment
+        android:id="@+id/productsDetailFragment"
+        android:name="com.example.bargh.view.fragment.ProductsDetailFragment"
+        android:label="ProductsDetailFragment" />
 </navigation>
