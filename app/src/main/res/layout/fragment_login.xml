@@ -35,7 +35,9 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:startIconDrawable="@drawable/ic_profile"
+                app:boxBackgroundColor="@color/colorWhite">
 
                 <EditText
                     android:id="@+id/et_mobile_number_login"
@@ -51,7 +53,10 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true">
+                app:passwordToggleEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                app:startIconDrawable="@drawable/ic_password"
+                app:boxBackgroundColor="@color/colorWhite">
 
                 <EditText
                     android:id="@+id/et_password_login"
@@ -74,7 +79,7 @@
                 android:layout_marginTop="@dimen/standard_margin_4x"
                 android:text="@string/action_sign_in"
                 android:textStyle="bold"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorAccent"
                 android:backgroundTint="@color/colorPrimary"
                 android:height="@dimen/button_height"
                 android:layout_gravity="center"/>
@@ -86,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/action_sign_up"
                 android:textStyle="bold"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorAccent"
                 android:backgroundTint="@color/colorPrimary"
                 android:height="@dimen/button_height"/>
 

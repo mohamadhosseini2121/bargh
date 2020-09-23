@@ -33,7 +33,10 @@
                 android:id="@+id/et_name_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layoutDirection="rtl">
+                android:layoutDirection="rtl"
+                app:boxBackgroundColor="@color/colorWhite"
+                app:endIconDrawable="@drawable/ic_profile"
+                app:endIconMode="custom">
 
                 <EditText
                     android:layout_width="match_parent"
@@ -49,7 +52,10 @@
                 android:id="@+id/et_lastname_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layoutDirection="rtl">
+                android:layoutDirection="rtl"
+                app:boxBackgroundColor="@color/colorWhite"
+                app:endIconDrawable="@drawable/ic_profile"
+                app:endIconMode="custom">
 
             <EditText
                 android:layout_width="match_parent"
@@ -69,7 +75,10 @@
                 app:helperTextEnabled="true"
                 android:layoutDirection="rtl"
                 android:textDirection="ltr"
-                app:helperTextTextColor="@color/colorAccent">
+                app:helperTextTextColor="@color/colorPrimaryDark"
+                app:boxBackgroundColor="@color/colorWhite"
+                app:endIconDrawable="@drawable/ic_phone_number"
+                app:endIconMode="custom">
 
                 <EditText
                     android:layout_width="match_parent"
@@ -89,7 +98,10 @@
                 app:helperText="اختیاری"
                 android:layoutDirection="rtl"
                 android:textDirection="ltr"
-                app:helperTextTextColor="@color/colorAccent">
+                app:helperTextTextColor="@color/colorPrimaryDark"
+                app:boxBackgroundColor="@color/colorWhite"
+                app:endIconDrawable="@drawable/ic_email"
+                app:endIconMode="custom">
 
                 <EditText
                     android:layout_width="match_parent"
@@ -105,7 +117,9 @@
                 android:id="@+id/et_password_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true">
+                app:passwordToggleEnabled="true"
+                app:boxBackgroundColor="@color/colorWhite"
+                app:startIconDrawable="@drawable/ic_password">
 
                 <EditText
                     android:layout_width="match_parent"
@@ -124,7 +138,9 @@
                 android:id="@+id/et_repassword_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true">
+                app:passwordToggleEnabled="true"
+                app:boxBackgroundColor="@color/colorWhite"
+                app:startIconDrawable="@drawable/ic_password">
 
                 <EditText
                     android:layout_width="match_parent"

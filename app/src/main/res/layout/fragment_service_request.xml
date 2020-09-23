@@ -26,14 +26,14 @@
         android:id="@+id/recycler_view_services_request_frag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/til_info"
+        android:layout_above="@id/til_info_service_request_frag"
         android:layout_below="@id/app_bar_service_request_frag"
         android:layout_marginTop="@dimen/standard_margin_half">
 
     </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_info"
+        android:id="@+id/til_info_service_request_frag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -41,7 +41,8 @@
         android:layout_above="@id/btn_next_step"
         android:layout_marginTop="@dimen/standard_margin_half">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <EditText
+            android:id="@+id/et_info_service_request_frag"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:text="@string/service_request_frag_info_et"/>
