@@ -56,12 +56,7 @@ public class ServiceRequestFragment extends Fragment {
         servicesAdapter = new ServicesAdapter(requireContext(), services);
         recyclerView.setAdapter(servicesAdapter);
 
-        nextStepBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_serviceRequestFragment_to_locationFragment);
-            }
-        });
+        nextStepBtn.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_serviceRequestFragment_to_locationFragment));
 
         return view;
     }
@@ -69,24 +64,21 @@ public class ServiceRequestFragment extends Fragment {
     @Override
     public void onResume() {
 
-        apiService.getAllServices(new ApiService.onGettingAllServices() {
-            @Override
-            public void onReceived(List<Service> allServices) {
-                services.clear();
-                services.addAll(allServices);
-                Log.d(TAG, "onReceived: allServices(0) name: " + allServices.get(0).getName() );
-                Log.d(TAG, "onReceived: services(0) name: " + allServices.get(0).getName() );
-                servicesAdapter.notifyDataSetChanged();
-                recyclerView.setVisibility(View.VISIBLE);
+        apiService.getAllServices(allServices -> {
+            services.clear();
+            services.addAll(allServices);
+            Log.d(TAG, "onReceived: allServices(0) name: " + allServices.get(0).getName() );
+            Log.d(TAG, "onReceived: services(0) name: " + allServices.get(0).getName() );
+            servicesAdapter.notifyDataSetChanged();
+            recyclerView.setVisibility(View.VISIBLE);
 
-            }
         });
         super.onResume();
     }
 
     private void setupToolbar() {
         toolbar.setTitle("انتخاب درخواست");
-        toolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.title_texts_color));
+        toolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.app_titles_color));
 
     }
 }

@@ -1,7 +1,5 @@
 package com.example.bargh.datamodel;
 
-import android.graphics.drawable.Drawable;
-
 public class Product {
 
     private int id;

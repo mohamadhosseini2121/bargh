@@ -55,5 +55,18 @@
     <fragment
         android:id="@+id/productsDetailFragment"
         android:name="com.example.bargh.view.fragment.ProductsDetailFragment"
-        android:label="ProductsDetailFragment" />
+        android:label="ProductsDetailFragment" >
+        <argument
+            android:name="productName"
+            app:argType="string" />
+        <argument
+            android:name="productPrice"
+            app:argType="integer" />
+        <argument
+            android:name="productInfo"
+            app:argType="string" />
+        <argument
+            android:name="productImageUrl"
+            app:argType="string" />
+    </fragment>
 </navigation>

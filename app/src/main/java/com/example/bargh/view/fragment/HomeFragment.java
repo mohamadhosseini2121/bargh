@@ -5,26 +5,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
 import com.example.bargh.R;
 import com.example.bargh.adapter.MainPagerAdapter;
-import com.example.bargh.view.fragment.ProductsFragment;
-import com.example.bargh.view.fragment.ServiceRequestFragment;
-import com.example.bargh.view.fragment.ServicesFragment;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -73,12 +65,7 @@ public class HomeFragment extends Fragment {
         setUpBottomAppBar();
 
         //click event over FAB
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_serviceRequestFragment);
-            }
-        });
+        fab.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_serviceRequestFragment));
 
         pagerAdapter = new MainPagerAdapter(getChildFragmentManager(), getLifecycle());
         viewPager2.setAdapter(pagerAdapter);
@@ -147,14 +134,7 @@ public class HomeFragment extends Fragment {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
 
         //click event over navigation menu like back arrow or hamburger icon
-        bottomAppBar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-
-            }
-        });
+        bottomAppBar.setNavigationOnClickListener(view -> bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED));
 
 
         bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -168,6 +148,7 @@ public class HomeFragment extends Fragment {
                     case BottomSheetBehavior.STATE_EXPANDED:
                         fab.hide();
                         break;
+
 
                 }
             }
@@ -183,12 +164,7 @@ public class HomeFragment extends Fragment {
     }
 
 
-    /**
-     * method to toggle fab mode
-     *
-     * @param view
-     */
-    public void toggleFabMode(View view) {
+    public void toggleFabMode() {
         //check the fab alignment mode and toggle accordingly
         if (bottomAppBar.getFabAlignmentMode() == BottomAppBar.FAB_ALIGNMENT_MODE_END) {
             bottomAppBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);

@@ -10,11 +10,13 @@ import android.widget.TextView;
 
 import com.example.bargh.datamodel.Product;
 import com.example.bargh.R;
+import com.example.bargh.view.fragment.HomeFragmentDirections;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +26,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
     private Context context;
     private List<Product> products;
+    private View view;
 
     public ProductsAdapter(Context context, List<Product> products) {
 
@@ -35,7 +38,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
     @Override
     public ProductsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.item_view_product, parent, false);
+        view = LayoutInflater.from(context).inflate(R.layout.item_view_product, parent, false);
         return new ProductsViewHolder(view);
     }
 
@@ -51,6 +54,12 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         Picasso.get().load(product.getProductImageUrl().replace("localhost", "192.168.1.10"))
                 .placeholder(R.drawable.ic_placeholder)
                 .into(holder.productImg);
+
+        holder.itemView.setOnClickListener(view -> {
+            HomeFragmentDirections.ActionHomeFragmentToProductsDetailFragment action = HomeFragmentDirections.actionHomeFragmentToProductsDetailFragment(product.getName(),
+                    product.getPrice(), product.getInfo(), product.getProductImageUrl());
+            Navigation.findNavController(view).navigate(action);
+        });
 
     }
 
