@@ -41,6 +41,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/shabnam"
                     android:hint="@string/prompt_name"
                     android:inputType="textPersonName"
                     android:maxLines="1"
@@ -60,6 +61,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/shabnam"
                 android:hint="@string/prompt_lastname"
                 android:inputType="textPersonName"
                 android:maxLines="1"
