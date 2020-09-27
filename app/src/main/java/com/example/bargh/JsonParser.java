@@ -2,10 +2,10 @@ package com.example.bargh;
 
 import android.util.Log;
 
-import com.example.bargh.datamodel.Service;
-import com.example.bargh.datamodel.Product;
-import com.example.bargh.datamodel.UserRepairRequest;
-import com.example.bargh.datamodel.User;
+import com.example.bargh.db.entity.Service;
+import com.example.bargh.db.entity.Product;
+import com.example.bargh.db.entity.UserRepairRequest;
+import com.example.bargh.db.entity.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;

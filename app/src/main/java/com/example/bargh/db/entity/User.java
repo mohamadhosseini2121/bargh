@@ -1,11 +1,26 @@
-package com.example.bargh.datamodel;
+package com.example.bargh.db.entity;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class User {
 
+    @ColumnInfo(name = "first_name")
     private String firstName;
+
+    @ColumnInfo(name = "last_name")
     private String lastName;
+
+    @ColumnInfo(name = "email")
     private String email;
+
+    @PrimaryKey
+    @ColumnInfo(name = "mobile_number")
     private String mobileNumber;
+
+    @ColumnInfo(name = "user_type")
     private int userType;
 
     public String getFirstName() {

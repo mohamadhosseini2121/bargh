@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.bargh.R;
-import com.example.bargh.datamodel.UserRepairRequest;
+import com.example.bargh.db.entity.UserRepairRequest;
 
 import java.util.List;
 
@@ -44,14 +44,7 @@ public class RequestedServicesAdapter extends RecyclerView.Adapter<RequestedServ
     public void onBindViewHolder(@NonNull ServicesViewHolder holder, int position) {
 
         UserRepairRequest userRepairRequest = userRepairRequests.get(position);
-        switch (userRepairRequest.getState()) {
-            case 0:
-                holder.statusTv.setText("در حال بررسی");
-                break;
-            case 1:
-                holder.statusTv.setText("در حال انجام");
-                break;
-        }
+        holder.statusTv.setText(userRepairRequest.getStateString());
         holder.typeTv.setText(userRepairRequest.getType());
         holder.infoTv.setText(userRepairRequest.getInfo());
         holder.timeTv.setText(userRepairRequest.getDate());

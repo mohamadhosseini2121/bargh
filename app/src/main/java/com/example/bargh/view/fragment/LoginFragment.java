@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,7 +25,7 @@ import android.widget.EditText;
 import com.example.bargh.ApiService;
 import com.example.bargh.JsonParser;
 import com.example.bargh.R;
-import com.example.bargh.datamodel.User;
+import com.example.bargh.db.entity.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.bargh.datamodel.Product;
+import com.example.bargh.db.entity.Product;
 import com.example.bargh.R;
 import com.example.bargh.view.fragment.HomeFragmentDirections;
 import com.squareup.picasso.Picasso;

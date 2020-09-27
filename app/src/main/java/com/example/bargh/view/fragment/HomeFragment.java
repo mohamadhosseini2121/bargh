@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 import com.example.bargh.R;
 import com.example.bargh.adapter.MainPagerAdapter;
 import com.example.bargh.adapter.RequestedServicesAdapter;
-import com.example.bargh.datamodel.UserRepairRequest;
+import com.example.bargh.db.entity.UserRepairRequest;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

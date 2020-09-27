@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.example.bargh.ApiService;
 import com.example.bargh.R;
 import com.example.bargh.adapter.RequestedServicesAdapter;
-import com.example.bargh.datamodel.UserRepairRequest;
+import com.example.bargh.db.entity.UserRepairRequest;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;

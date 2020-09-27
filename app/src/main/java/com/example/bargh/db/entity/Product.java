@@ -1,4 +1,5 @@
-package com.example.bargh.datamodel;
+package com.example.bargh.db.entity;
+
 
 public class Product {
 

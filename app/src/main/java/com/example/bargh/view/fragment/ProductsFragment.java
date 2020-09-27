@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import com.example.bargh.ApiService;
 import com.example.bargh.R;
 import com.example.bargh.adapter.ProductsAdapter;
-import com.example.bargh.datamodel.Product;
+import com.example.bargh.db.entity.Product;
 
 import java.util.List;
 

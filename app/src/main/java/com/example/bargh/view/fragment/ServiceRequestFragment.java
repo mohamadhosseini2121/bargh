@@ -19,7 +19,7 @@ import android.widget.Button;
 import com.example.bargh.ApiService;
 import com.example.bargh.R;
 import com.example.bargh.adapter.ServicesAdapter;
-import com.example.bargh.datamodel.Service;
+import com.example.bargh.db.entity.Service;
 import com.google.android.material.appbar.AppBarLayout;
 import java.util.ArrayList;
 import java.util.List;

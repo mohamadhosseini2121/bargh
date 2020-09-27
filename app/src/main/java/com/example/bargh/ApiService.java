@@ -11,9 +11,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.bargh.datamodel.Service;
-import com.example.bargh.datamodel.Product;
-import com.example.bargh.datamodel.UserRepairRequest;
+import com.example.bargh.db.entity.Service;
+import com.example.bargh.db.entity.Product;
+import com.example.bargh.db.entity.UserRepairRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
