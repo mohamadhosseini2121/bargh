@@ -14,7 +14,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:visibility="gone" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"/>
 
 
     <ScrollView
@@ -42,6 +44,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/shabnam"
+                    android:textSize="@dimen/register_et_font_size"
+                    android:maxLength="20"
                     android:hint="@string/prompt_name"
                     android:inputType="textPersonName"
                     android:maxLines="1"
@@ -63,6 +67,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/shabnam"
                 android:hint="@string/prompt_lastname"
+                android:maxLength="30"
+                android:textSize="@dimen/register_et_font_size"
                 android:inputType="textPersonName"
                 android:maxLines="1"
                 android:singleLine="true" />
@@ -86,6 +92,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_mobile_number_register"
+                    android:maxLength="11"
+                    android:fontFamily="@font/shabnam"
+                    android:textSize="@dimen/register_et_font_size"
                     android:inputType="number"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -109,7 +118,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
+                    android:maxLength="50"
+                    android:textSize="@dimen/register_et_font_size"
                     android:inputType="textEmailAddress"
+                    android:fontFamily="@font/shabnam"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -127,9 +139,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
+                    android:maxLength="30"
                     android:imeActionId="6"
                     android:imeActionLabel="@string/error_invalid_password"
+                    android:textSize="@dimen/register_et_font_size"
                     android:imeOptions="actionUnspecified"
+                    android:fontFamily="@font/shabnam"
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -148,7 +163,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password2"
+                    android:maxLength="30"
+                    android:textSize="@dimen/register_et_font_size"
                     android:inputType="textPassword"
+                    android:fontFamily="@font/shabnam"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -159,9 +177,11 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:textSize="@dimen/button_text_size"
+                android:fontFamily="@font/shabnam_bold"
                 android:text="@string/action_sign_up"
                 android:textStyle="bold"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorAccent"
                 android:backgroundTint="@color/colorPrimary"
                 android:height="@dimen/button_height"
                 android:layout_gravity="center"/>

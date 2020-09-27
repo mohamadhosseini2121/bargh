@@ -89,6 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/shabnam"
+                android:inputType="textPersonName"
                 tools:text="محمد"
                 android:drawableStart="@drawable/ic_profile"
                 android:drawablePadding="10dp"/>
@@ -106,6 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/shabnam"
+                android:inputType="textPersonName"
                 tools:text="حسینی نوه"
                 android:drawableStart="@drawable/ic_profile"
                 android:drawablePadding="10dp"/>
@@ -123,6 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="Mohamadhosseini2121@gmail.com"
+                android:inputType="textEmailAddress"
                 android:textDirection="ltr"
                 android:drawableStart="@drawable/ic_email"
                 android:drawablePadding="10dp"/>
@@ -139,6 +142,7 @@
                 android:id="@+id/tiet_mobile_number_user_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 tools:text="09123456789"
                 android:textDirection="ltr"
                 android:drawableStart="@drawable/ic_phone_number"
@@ -152,9 +156,10 @@
     <Button
         android:id="@+id/btn_update_user_profile"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/button_height"
         android:text="@string/btn_update_user_profile_frag"
         android:fontFamily="@font/shabnam_bold"
+        android:textSize="@dimen/button_text_size"
         android:textStyle="bold"
         android:textColor="@color/colorAccent"
         android:layout_alignParentBottom="true"

@@ -1,10 +1,11 @@
 package com.example.bargh.db.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "users")
 public class User {
 
     @ColumnInfo(name = "first_name")
@@ -18,10 +19,20 @@ public class User {
 
     @PrimaryKey
     @ColumnInfo(name = "mobile_number")
+    @NonNull
     private String mobileNumber;
 
     @ColumnInfo(name = "user_type")
     private int userType;
+
+    public User (String firstName , String lastName , String email , @NonNull String mobileNumber , int userType) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.mobileNumber = mobileNumber;
+        this.userType = userType;
+    }
+
 
     public String getFirstName() {
         return firstName;

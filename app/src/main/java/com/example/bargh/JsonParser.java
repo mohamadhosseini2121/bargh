@@ -2,8 +2,8 @@ package com.example.bargh;
 
 import android.util.Log;
 
-import com.example.bargh.db.entity.Service;
-import com.example.bargh.db.entity.Product;
+import com.example.bargh.datamodel.Service;
+import com.example.bargh.datamodel.Product;
 import com.example.bargh.db.entity.UserRepairRequest;
 import com.example.bargh.db.entity.User;
 
@@ -73,14 +73,14 @@ public class JsonParser {
 
     public static User parsLoginJsonObject(JSONObject jsonObject) {
 
-        User user = new User();
+        User user = null;
 
         try {
-            user.setFirstName(jsonObject.getString("firstname"));
-            user.setLastName(jsonObject.getString("lastname"));
-            user.setEmail(jsonObject.getString("email"));
-            user.setMobileNumber(jsonObject.getString("mobilenumber"));
-            user.setUserType(Integer.parseInt(jsonObject.getString("usertype")));
+            user = new User(jsonObject.getString("firstname"),
+                            jsonObject.getString("lastname"),
+                            jsonObject.getString("email"),
+                            jsonObject.getString("mobilenumber"),
+                            Integer.parseInt(jsonObject.getString("usertype")));
 
         } catch (JSONException e) {
             e.printStackTrace();

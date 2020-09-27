@@ -20,6 +20,8 @@ import android.widget.Button;
 
 import com.example.bargh.ApiService;
 import com.example.bargh.R;
+import com.example.bargh.db.AppDatabase;
+import com.example.bargh.db.entity.User;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -87,12 +89,12 @@ public class RegisterFragment extends Fragment {
         mRePasswordEt.setError(null);
 
         // Store values at the time of the login attempt.
-        String name = Objects.requireNonNull(mNameEt.getEditText()).getText().toString();
-        String lastName = Objects.requireNonNull(mLastNameEt.getEditText()).getText().toString();
-        String mobileNumber = Objects.requireNonNull(mMobileNumberEt.getEditText()).getText().toString();
-        String email = Objects.requireNonNull(mEmailEt.getEditText()).getText().toString();
-        String password = Objects.requireNonNull(mPasswordEt.getEditText()).getText().toString();
-        String rePassword = Objects.requireNonNull(mRePasswordEt.getEditText()).getText().toString();
+        String name = Objects.requireNonNull(mNameEt.getEditText()).getText().toString().trim();
+        String lastName = Objects.requireNonNull(mLastNameEt.getEditText()).getText().toString().trim();
+        String mobileNumber = Objects.requireNonNull(mMobileNumberEt.getEditText()).getText().toString().trim();
+        String email = Objects.requireNonNull(mEmailEt.getEditText()).getText().toString().trim();
+        String password = Objects.requireNonNull(mPasswordEt.getEditText()).getText().toString().trim();
+        String rePassword = Objects.requireNonNull(mRePasswordEt.getEditText()).getText().toString().trim();
 
         boolean cancel = false;
         View focusView = null;
@@ -122,7 +124,7 @@ public class RegisterFragment extends Fragment {
         }
 
         // Check for a valid email address.
-        if (!isEmailValid(email)) {
+        if (!TextUtils.isEmpty(email) && !isEmailValid(email)) {
             mEmailEt.setError(getString(R.string.error_invalid_email));
             focusView = mEmailEt;
             cancel = true;
@@ -177,6 +179,10 @@ public class RegisterFragment extends Fragment {
                             } else {
                                 showProgress(false);
                                 Snackbar.make(view , "ثبت نام با موفقیت انجام شد", Snackbar.LENGTH_SHORT).show();
+                                User user = new User(name,lastName,email,mobileNumber,0);
+                                AppDatabase database = AppDatabase.getInstance(requireContext());
+                                database.userDao().insertAll(user);
+
                                 Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
                             }
                         }
@@ -186,7 +192,7 @@ public class RegisterFragment extends Fragment {
 
     private boolean isMobileNumberValid(String mobileNumber) {
 
-        return mobileNumber.contains("9") && mobileNumber.length() == 11;
+        return mobileNumber.startsWith("09") && mobileNumber.length() == 11;
     }
 
     private boolean isEmailValid(String email) {

@@ -25,10 +25,13 @@ import android.widget.EditText;
 import com.example.bargh.ApiService;
 import com.example.bargh.JsonParser;
 import com.example.bargh.R;
+import com.example.bargh.db.AppDatabase;
 import com.example.bargh.db.entity.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 /**
  * A login screen that offers login via mobile number/password.
@@ -36,7 +39,7 @@ import org.json.JSONObject;
 public class LoginFragment extends Fragment {
 
     private final String TAG = "LoginActivity";
-    private AlertDialog alertDialog;
+
     @BindView(R.id.et_mobile_number_login)
     EditText mobileNumberView;
     @BindView(R.id.et_password_login)
@@ -50,8 +53,7 @@ public class LoginFragment extends Fragment {
     @BindView(R.id.btn_sign_up_login)
     Button mSignUpButton;
 
-
-    private ApiService apiService;
+    private AppDatabase database;
     private View view;
 
 
@@ -59,12 +61,18 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_login, container, false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        database = AppDatabase.getInstance(requireContext());
+        List<User> users = database.userDao().getAll();
+        if(!users.isEmpty()){
+            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homeFragment);
+        }
 
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
@@ -76,8 +84,8 @@ public class LoginFragment extends Fragment {
 
         mSignInButton.setOnClickListener((View v) -> {
 
-            //attemptLogin();
-            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homeFragment);
+            attemptLogin();
+            //Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homeFragment);
 
 
         });
@@ -142,51 +150,59 @@ public class LoginFragment extends Fragment {
             // perform the user login attempt.
             showProgress(true);
 
-            alertDialog = new AlertDialog.Builder(requireContext()).create();
-            alertDialog.setTitle("Login Status");
-            apiService = ApiService.getInstance(requireContext());
-            apiService.UserLoginTask(mobileNumber, password, new ApiService.OnLoginResponseReceived() {
-                @Override
-                public void onReceived(String rsp) {
-                    showProgress(false);
-                    if (rsp.equals("200"))
-                    {
-                        mPasswordView.setError(getString(R.string.error_incorrect_password));
+            StartLoginTask (mobileNumber, password);
 
-                    }else if (rsp.equals("300")){
-
-                        mobileNumberView.setError(getString(R.string.error_not_a_user));
-                    }else {
-                        User user = new User();
-
-                        try {
-                            JSONObject jsonObj = new JSONObject(rsp);
-                            user = JsonParser.parsLoginJsonObject(jsonObj);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        alertDialog.setMessage("Welcome " + user.getFirstName());
-                        alertDialog.show();}
-                }
-            });
         }
     }
 
     private boolean isMobileNumberValid(String mobileNumber) {
 
-        return mobileNumber.contains("9") && mobileNumber.length() == 11;
+        return mobileNumber.startsWith("09") && mobileNumber.length() == 11;
     }
 
     private boolean isPasswordValid(String password) {
 
-        return password.length() > 4;
+        return password.length() > 5;
     }
+
+
+    private void StartLoginTask(String mobileNumber, String password) {
+
+        ApiService apiService = ApiService.getInstance(requireContext());
+        apiService.UserLoginTask(mobileNumber, password, new ApiService.OnLoginResponseReceived() {
+            @Override
+            public void onReceived(String rsp) {
+                showProgress(false);
+                if (rsp.equals("200"))
+                {
+                    mPasswordView.setError(getString(R.string.error_incorrect_password));
+
+                }else if (rsp.equals("300")){
+
+                    mobileNumberView.setError(getString(R.string.error_not_a_user));
+                }else {
+                    User user = null;
+
+                    try {
+                        JSONObject jsonObj = new JSONObject(rsp);
+                        user = JsonParser.parsLoginJsonObject(jsonObj);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    database.userDao().insertAll(user);
+                    Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homeFragment);
+
+                }
+            }
+        });
+    }
+
+
 
     /**
      * Shows the progress UI and hides the login form.
      */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
 
         int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);

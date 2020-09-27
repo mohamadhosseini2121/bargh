@@ -19,10 +19,13 @@ import android.widget.LinearLayout;
 import com.example.bargh.R;
 import com.example.bargh.adapter.MainPagerAdapter;
 import com.example.bargh.adapter.RequestedServicesAdapter;
+import com.example.bargh.db.AppDatabase;
+import com.example.bargh.db.entity.User;
 import com.example.bargh.db.entity.UserRepairRequest;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -50,15 +53,14 @@ public class HomeFragment extends Fragment implements RequestedServicesAdapter.O
 
     private BottomSheetBehavior bottomSheetBehavior;
     private UserRepairRequest choseToDeleteService = null;
-    private View view;
 
     private MainPagerAdapter pagerAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_home, container, false);
-        ButterKnife.bind(this,view);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        ButterKnife.bind(this, view);
         return view;
     }
 
@@ -78,6 +80,11 @@ public class HomeFragment extends Fragment implements RequestedServicesAdapter.O
 
             }
         });
+
+        AppDatabase database = AppDatabase.getInstance(requireContext());
+        User user = database.userDao().getFirst();
+        if (user != null)
+            Snackbar.make(view ,  " خوش امدی " + user.getFirstName() , Snackbar.LENGTH_SHORT).show();
 
     }
 

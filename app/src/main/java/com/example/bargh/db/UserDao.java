@@ -10,11 +10,14 @@ import androidx.room.Query;
 @Dao
 public interface UserDao {
 
-    @Query("SELECT * FROM user")
+    @Query("SELECT * FROM users")
     List<User> getAll();
 
-    @Query("SELECT * FROM user LIMIT 1")
+    @Query("SELECT * FROM users LIMIT 1")
     User getFirst();
+
+    @Query("DELETE FROM users")
+    void deleteAll();
 
     @Insert
     void insertAll(User... users);

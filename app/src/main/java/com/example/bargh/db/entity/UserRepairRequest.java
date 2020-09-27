@@ -1,9 +1,10 @@
 package com.example.bargh.db.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 
-@Entity
+@Entity (primaryKeys = {"user","timestamp"} , tableName = "user_repair_requests")
 public class UserRepairRequest {
 
     public static final int STATE_PENDING = 0;
@@ -16,6 +17,7 @@ public class UserRepairRequest {
     @ColumnInfo(name = "info")
     private String info;
 
+    @NonNull
     @ColumnInfo(name = "user")
     private String user;
 
@@ -31,6 +33,7 @@ public class UserRepairRequest {
     @ColumnInfo(name = "date")
     private String date;
 
+    @NonNull
     @ColumnInfo(name = "timestamp")
     private String timestamp;
 

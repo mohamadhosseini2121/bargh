@@ -13,10 +13,10 @@ import androidx.room.Query;
 @Dao
 public interface UserRepairRequestDao {
 
-    @Query("SELECT * FROM UserRepairRequest")
+    @Query("SELECT * FROM user_repair_requests")
     List<UserRepairRequest> getAll();
 
-    @Query("SELECT * FROM user LIMIT 1")
+    @Query("SELECT * FROM user_repair_requests LIMIT 1")
     UserRepairRequest getFirst();
 
     @Insert

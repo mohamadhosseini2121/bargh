@@ -46,6 +46,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="btn_update_user_profile_frag">بروزرسانی</string>
+    <string name="btn_submit_text_location_frag">ثبت درخواست</string>
 
 
 </resources>

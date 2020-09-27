@@ -1,4 +1,4 @@
-package com.example.bargh.db.entity;
+package com.example.bargh.datamodel;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

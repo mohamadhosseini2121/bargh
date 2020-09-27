@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.bargh.R;
-import com.example.bargh.db.entity.Service;
+import com.example.bargh.datamodel.Service;
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
