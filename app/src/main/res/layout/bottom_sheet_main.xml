@@ -18,10 +18,14 @@
 
 
     <LinearLayout
+        android:id="@+id/item_view_profile_bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="5">
+        android:weightSum="5"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground">
 
         <ImageView
             android:id="@+id/profile_image_bs"
@@ -33,7 +37,7 @@
             android:paddingBottom="@dimen/standard_margin_2x"
             android:src="@drawable/ic_profile" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -58,7 +62,7 @@
             android:paddingBottom="@dimen/standard_margin_2x"
             android:src="@drawable/ic_purchases" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -82,7 +86,7 @@
             android:paddingBottom="@dimen/standard_margin_2x"
             android:src="@drawable/ic_about_us" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -106,7 +110,7 @@
             android:paddingBottom="@dimen/standard_margin_2x"
             android:src="@drawable/ic_contact_us" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

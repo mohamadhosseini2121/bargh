@@ -14,9 +14,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.example.bargh.R;
 import com.example.bargh.adapter.MainPagerAdapter;
+import com.example.bargh.adapter.RequestedServicesAdapter;
+import com.example.bargh.datamodel.UserRepairRequest;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,11 +28,14 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.Objects;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements RequestedServicesAdapter.OnRequestedServicesLongClick {
 
     private final String TAG = "MainActivity";
 
-
+    @BindView(R.id.item_view_profile_bottom_sheet)
+    LinearLayout profileItemView;
+    @BindView(R.id.img_delete_main_ac)
+    ImageView deleteImg;
     @BindView(R.id.viewPager_main_ac)
     ViewPager2 viewPager2;
     @BindView(R.id.tabLayout_main_ac)
@@ -41,7 +47,9 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.fab_main_ac)
     FloatingActionButton fab;
 
+
     private BottomSheetBehavior bottomSheetBehavior;
+    private UserRepairRequest choseToDeleteService = null;
     private View view;
 
     private MainPagerAdapter pagerAdapter;
@@ -57,6 +65,19 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init();
+        profileItemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_userProfileFragment);
+            }
+        });
+        deleteImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((ServicesFragment)pagerAdapter.getFragment(0)).deleteRequestedService(choseToDeleteService);
+
+            }
+        });
 
     }
 
@@ -67,8 +88,9 @@ public class HomeFragment extends Fragment {
         //click event over FAB
         fab.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_serviceRequestFragment));
 
-        pagerAdapter = new MainPagerAdapter(getChildFragmentManager(), getLifecycle());
+        pagerAdapter = new MainPagerAdapter(getChildFragmentManager(), getLifecycle(),this);
         viewPager2.setAdapter(pagerAdapter);
+
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -146,32 +168,36 @@ public class HomeFragment extends Fragment {
                         fab.show();
                         break;
                     case BottomSheetBehavior.STATE_EXPANDED:
+                    case BottomSheetBehavior.STATE_HALF_EXPANDED:
                         fab.hide();
                         break;
-
-
                 }
             }
 
             @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-
-                fab.hide();
-
-            }
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) { fab.hide(); }
         });
 
     }
 
-
-    public void toggleFabMode() {
-        //check the fab alignment mode and toggle accordingly
+    public void alignFabCenter () {
         if (bottomAppBar.getFabAlignmentMode() == BottomAppBar.FAB_ALIGNMENT_MODE_END) {
             bottomAppBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
-        } else {
+        }
+    }
+
+    public void alignFabEnd () {
+        if (bottomAppBar.getFabAlignmentMode() == BottomAppBar.FAB_ALIGNMENT_MODE_CENTER) {
             bottomAppBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_END);
         }
     }
 
+
+    @Override
+    public void onRequestedServiceLongClick(UserRepairRequest userRepairRequest) {
+        choseToDeleteService = userRepairRequest;
+        alignFabEnd();
+        deleteImg.setVisibility(View.VISIBLE);
+    }
 
 }

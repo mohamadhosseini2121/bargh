@@ -17,9 +17,10 @@ public class MainPagerAdapter extends FragmentStateAdapter {
 
     private ArrayList<Fragment> arrayList = new ArrayList<>();
 
-    public MainPagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+    public MainPagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle,
+                            RequestedServicesAdapter.OnRequestedServicesLongClick onRequestedServicesLongClick) {
         super(fragmentManager, lifecycle);
-        arrayList.add(new ServicesFragment());
+        arrayList.add(new ServicesFragment(onRequestedServicesLongClick));
         arrayList.add(new ProductsFragment());
     }
 
@@ -28,7 +29,10 @@ public class MainPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
+        return arrayList.get(position);
+    }
 
+    public Fragment getFragment (int position){
         return arrayList.get(position);
     }
 

@@ -2,8 +2,6 @@ package com.example.bargh.view.fragment;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +16,8 @@ import android.widget.TextView;
 import com.example.bargh.ApiService;
 import com.example.bargh.R;
 import com.example.bargh.adapter.RequestedServicesAdapter;
-import com.example.bargh.datamodel.RequestedService;
+import com.example.bargh.datamodel.UserRepairRequest;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +29,16 @@ public class ServicesFragment extends Fragment {
     @BindView(R.id.tv_empty_data)
     TextView emptyTv;
 
-    private List<RequestedService> requestedServices = new ArrayList<>();
+    private List<UserRepairRequest> userRepairRequests = new ArrayList<>();
     private RequestedServicesAdapter requestedServicesAdapter;
     private ApiService apiService;
     private View view;
+    private RequestedServicesAdapter.OnRequestedServicesLongClick onRequestedServicesLongClick;
 
+    public ServicesFragment (RequestedServicesAdapter.OnRequestedServicesLongClick onRequestedServicesLongClick) {
 
-    public ServicesFragment() {
-        // Required empty public constructor
+        this.onRequestedServicesLongClick = onRequestedServicesLongClick;
+
     }
 
 
@@ -50,10 +51,10 @@ public class ServicesFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false));
         apiService = ApiService.getInstance(requireContext());
-        requestedServicesAdapter = new RequestedServicesAdapter(requireContext(), requestedServices);
+        requestedServicesAdapter = new RequestedServicesAdapter(requireContext(), userRepairRequests,onRequestedServicesLongClick);
         recyclerView.setAdapter(requestedServicesAdapter);
 
-        if (requestedServices.isEmpty()){
+        if (userRepairRequests.isEmpty()){
             recyclerView.setVisibility(View.GONE);
             emptyTv.setVisibility(View.VISIBLE);
         }else{
@@ -69,10 +70,10 @@ public class ServicesFragment extends Fragment {
 
         apiService.getUserServices("09024331673", new ApiService.OnGettingUserServices() {
             @Override
-            public void onReceived(List<RequestedService> rsp) {
+            public void onReceived(List<UserRepairRequest> rsp) {
                 if (rsp != null && !rsp.isEmpty()) {
-                    requestedServices.clear();
-                    requestedServices.addAll(rsp);
+                    userRepairRequests.clear();
+                    userRepairRequests.addAll(rsp);
                     requestedServicesAdapter.notifyDataSetChanged();
                     recyclerView.setVisibility(View.VISIBLE);
                     emptyTv.setVisibility(View.GONE);
@@ -83,13 +84,32 @@ public class ServicesFragment extends Fragment {
             }
         });
 
+    }
 
+    public void deleteRequestedService (UserRepairRequest userRepairRequest) {
 
+        if (userRepairRequest.getState() == 0)
+            apiService.deleteUserService(userRepairRequest, new ApiService.onDeletingRequestedService() {
+                @Override
+                public void onDelete(int rsp) {
+                    if (rsp == 1)
+                        Snackbar.make(view , "حذف با موفقیت انجام شد", Snackbar.LENGTH_SHORT).show();
+                    else
+                        Snackbar.make(view , "حذف با موفقیت انجام نشد", Snackbar.LENGTH_SHORT).show();
+                }
+            });
+
+        int position = userRepairRequests.indexOf(userRepairRequest);
+        userRepairRequests.remove(userRepairRequest);
+        requestedServicesAdapter.notifyItemRemoved(position);
+        if (userRepairRequests.isEmpty()){
+            recyclerView.setVisibility(View.GONE);
+            emptyTv.setVisibility(View.VISIBLE);
+        }else{
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyTv.setVisibility(View.GONE);
+        }
 
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-    }
 }

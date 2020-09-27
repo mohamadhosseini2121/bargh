@@ -13,7 +13,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bargh.datamodel.Service;
 import com.example.bargh.datamodel.Product;
-import com.example.bargh.datamodel.RequestedService;
+import com.example.bargh.datamodel.UserRepairRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +35,7 @@ public class ApiService {
     private final String register_url = "http://192.168.1.10/bargh/register.php";
     private final String getUserServices_url = "http://192.168.1.10/bargh/getUserServices.php";
     private final String getAllServices_url = "http://192.168.1.10/bargh/getAllServices.php";
+    private final String removeUserRequestedService_url = "http://192.168.1.10/bargh/removeUserService.php";
 
 
     private ApiService (Context context){
@@ -61,6 +62,33 @@ public class ApiService {
                 },
 
                 error -> Log.e(TAG, "onErrorResponse: " + error.toString() ));
+
+        request.setRetryPolicy(new DefaultRetryPolicy(18000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        Volley.newRequestQueue(Objects.requireNonNull(context)).add(request);
+
+
+    }
+
+    public void deleteUserService (UserRepairRequest userRepairRequest,
+                                   onDeletingRequestedService onDeletingRequestedService) {
+
+        StringRequest request = new StringRequest(Request.Method.POST,
+                removeUserRequestedService_url,
+                response -> {
+                    onDeletingRequestedService.onDelete(Integer.parseInt(response));
+                },
+
+                error -> Log.e(TAG, "onErrorResponse: " + error.toString() )){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<>();
+                params.put("mNumber", userRepairRequest.getUser());
+                params.put("timestamp", userRepairRequest.getTimestamp());
+                return params;
+            }
+        };
 
         request.setRetryPolicy(new DefaultRetryPolicy(18000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -208,12 +236,16 @@ public class ApiService {
 
     }
 
+    public interface onDeletingRequestedService {
+        void onDelete (int rsp);
+    }
+
     public interface onGettingAllServices {
         void onReceived (List<Service> allServices);
     }
 
     public interface OnGettingUserServices {
-        void onReceived (List<RequestedService> rsp);
+        void onReceived (List<UserRepairRequest> rsp);
     }
 
     public interface OnRegisterResponseReceived {

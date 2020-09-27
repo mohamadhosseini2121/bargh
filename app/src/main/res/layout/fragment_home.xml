@@ -46,6 +46,14 @@
         app:hideOnScroll="true"
         app:navigationIcon="@drawable/ic_menu">
 
+        <ImageView
+            android:id="@+id/img_delete_main_ac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete"
+            android:visibility="gone"/>
+
+
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

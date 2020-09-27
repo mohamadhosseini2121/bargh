@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.example.bargh.datamodel.Service;
 import com.example.bargh.datamodel.Product;
-import com.example.bargh.datamodel.RequestedService;
+import com.example.bargh.datamodel.UserRepairRequest;
 import com.example.bargh.datamodel.User;
 
 import org.json.JSONArray;
@@ -42,33 +42,32 @@ public class JsonParser {
         return services;
     }
 
-    public static List<RequestedService> parsUserServicesJsonArray (JSONArray jsonArray){
+    public static List<UserRepairRequest> parsUserServicesJsonArray (JSONArray jsonArray){
 
-        List<RequestedService> requestedServices = new ArrayList<>();
+        List<UserRepairRequest> userRepairRequests = new ArrayList<>();
 
         for (int i = 0; i < jsonArray.length(); i++) {
 
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                RequestedService requestedService = new RequestedService();
-                requestedService.setType(jsonObject.getString("type"));
-                requestedService.setInfo(jsonObject.getString("info"));
-                requestedService.setDate(jsonObject.getString("date"));
-                requestedService.setUser(jsonObject.getString("user"));
-                requestedService.setState(jsonObject.getInt("state"));
-                requestedService.setLat(jsonObject.getDouble("lat"));
-                requestedService.setLng(jsonObject.getDouble("lng"));
+                UserRepairRequest userRepairRequest = new UserRepairRequest();
+                userRepairRequest.setType(jsonObject.getString("type"));
+                userRepairRequest.setInfo(jsonObject.getString("info"));
+                userRepairRequest.setDate(jsonObject.getString("date"));
+                userRepairRequest.setUser(jsonObject.getString("user"));
+                userRepairRequest.setState(jsonObject.getInt("state"));
+                userRepairRequest.setTimestamp(String.valueOf(jsonObject.getInt("timestamp")));
+                userRepairRequest.setLat(jsonObject.getDouble("lat"));
+                userRepairRequest.setLng(jsonObject.getDouble("lng"));
 
-                requestedServices.add(requestedService);
+                userRepairRequests.add(userRepairRequest);
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        Log.d(TAG, "parsUserServicesJsonArray: services: date of first item: " +
-                requestedServices.get(0).getDate() + " date of second item: " + requestedServices.get(1).getDate());
 
-        return requestedServices;
+        return userRepairRequests;
 
     }
 

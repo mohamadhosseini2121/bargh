@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.bargh.R;
-import com.example.bargh.datamodel.RequestedService;
+import com.example.bargh.datamodel.UserRepairRequest;
 
 import java.util.List;
 
@@ -18,13 +18,18 @@ import butterknife.ButterKnife;
 
 public class RequestedServicesAdapter extends RecyclerView.Adapter<RequestedServicesAdapter.ServicesViewHolder> {
 
-    List<RequestedService> requestedServices;
+    List<UserRepairRequest> userRepairRequests;
     Context context;
+    OnRequestedServicesLongClick onRequestedServicesLongClick;
 
-    public RequestedServicesAdapter(Context context, List<RequestedService> requestedServices) {
+    public RequestedServicesAdapter(Context context,
+                                    List<UserRepairRequest> userRepairRequests,
+                                    OnRequestedServicesLongClick onRequestedServicesLongClick) {
 
-        this.requestedServices = requestedServices;
+        this.userRepairRequests = userRepairRequests;
         this.context = context;
+        this.onRequestedServicesLongClick = onRequestedServicesLongClick;
+
     }
 
     @NonNull
@@ -38,8 +43,8 @@ public class RequestedServicesAdapter extends RecyclerView.Adapter<RequestedServ
     @Override
     public void onBindViewHolder(@NonNull ServicesViewHolder holder, int position) {
 
-        RequestedService requestedService = requestedServices.get(position);
-        switch (requestedService.getState()) {
+        UserRepairRequest userRepairRequest = userRepairRequests.get(position);
+        switch (userRepairRequest.getState()) {
             case 0:
                 holder.statusTv.setText("در حال بررسی");
                 break;
@@ -47,15 +52,25 @@ public class RequestedServicesAdapter extends RecyclerView.Adapter<RequestedServ
                 holder.statusTv.setText("در حال انجام");
                 break;
         }
-        holder.typeTv.setText(requestedService.getType());
-        holder.infoTv.setText(requestedService.getInfo());
-        holder.timeTv.setText(requestedService.getDate());
+        holder.typeTv.setText(userRepairRequest.getType());
+        holder.infoTv.setText(userRepairRequest.getInfo());
+        holder.timeTv.setText(userRepairRequest.getDate());
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                view.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+                onRequestedServicesLongClick.onRequestedServiceLongClick(userRepairRequest);
+                return true;
+            }
+        });
 
     }
 
+
     @Override
     public int getItemCount() {
-        return requestedServices.size();
+        return userRepairRequests.size();
     }
 
     public class ServicesViewHolder extends RecyclerView.ViewHolder {
@@ -73,6 +88,10 @@ public class RequestedServicesAdapter extends RecyclerView.Adapter<RequestedServ
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface OnRequestedServicesLongClick {
+        void onRequestedServiceLongClick(UserRepairRequest userRepairRequest);
     }
 
 }

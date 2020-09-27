@@ -1,6 +1,6 @@
 package com.example.bargh.datamodel;
 
-public class RequestedService {
+public class UserRepairRequest {
 
     private String type;
     private String info;
@@ -9,6 +9,15 @@ public class RequestedService {
     private double lat;
     private double lng;
     private String date;
+    private String timestamp;
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
 
     public double getLat() {
         return lat;
