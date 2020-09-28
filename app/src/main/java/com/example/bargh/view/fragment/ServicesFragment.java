@@ -33,11 +33,11 @@ public class ServicesFragment extends Fragment {
     private RequestedServicesAdapter requestedServicesAdapter;
     private ApiService apiService;
     private View view;
-    private RequestedServicesAdapter.OnRequestedServicesLongClick onRequestedServicesLongClick;
+    private RequestedServicesAdapter.OnRequestedServicesListener onRequestedServicesListener;
 
-    public ServicesFragment (RequestedServicesAdapter.OnRequestedServicesLongClick onRequestedServicesLongClick) {
+    public ServicesFragment (RequestedServicesAdapter.OnRequestedServicesListener onRequestedServicesListener) {
 
-        this.onRequestedServicesLongClick = onRequestedServicesLongClick;
+        this.onRequestedServicesListener = onRequestedServicesListener;
 
     }
 
@@ -51,7 +51,7 @@ public class ServicesFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false));
         apiService = ApiService.getInstance(requireContext());
-        requestedServicesAdapter = new RequestedServicesAdapter(requireContext(), userRepairRequests,onRequestedServicesLongClick);
+        requestedServicesAdapter = new RequestedServicesAdapter(requireContext(), userRepairRequests,onRequestedServicesListener);
         recyclerView.setAdapter(requestedServicesAdapter);
 
         if (userRepairRequests.isEmpty()){

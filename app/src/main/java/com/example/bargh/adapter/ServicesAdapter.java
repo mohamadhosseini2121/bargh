@@ -41,6 +41,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
         holder.nameTv.setText(service.getName());
         holder.infoTv.setText(service.getInfo());
 
+
     }
 
     @Override

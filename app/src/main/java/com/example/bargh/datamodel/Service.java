@@ -1,20 +1,22 @@
 package com.example.bargh.datamodel;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-
-@Entity
 public class Service {
 
-    @ColumnInfo(name = "id")
     private int id;
 
-    @ColumnInfo(name = "name")
     private String name;
 
-    @ColumnInfo(name = "info")
     private String info;
 
+    private boolean isSelected;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 
     public int getId() { return id; }
 

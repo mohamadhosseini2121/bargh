@@ -31,7 +31,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.Objects;
 
-public class HomeFragment extends Fragment implements RequestedServicesAdapter.OnRequestedServicesLongClick {
+public class HomeFragment extends Fragment implements RequestedServicesAdapter.OnRequestedServicesListener {
 
     private final String TAG = "MainActivity";
 
@@ -201,10 +201,16 @@ public class HomeFragment extends Fragment implements RequestedServicesAdapter.O
 
 
     @Override
-    public void onRequestedServiceLongClick(UserRepairRequest userRepairRequest) {
+    public void onLongClick(UserRepairRequest userRepairRequest, View view) {
+
         choseToDeleteService = userRepairRequest;
         alignFabEnd();
         deleteImg.setVisibility(View.VISIBLE);
+
     }
 
+    @Override
+    public void onClick(UserRepairRequest userRepairRequest, View view) {
+
+    }
 }

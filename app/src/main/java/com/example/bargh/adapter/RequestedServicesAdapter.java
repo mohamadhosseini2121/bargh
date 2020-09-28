@@ -20,15 +20,15 @@ public class RequestedServicesAdapter extends RecyclerView.Adapter<RequestedServ
 
     List<UserRepairRequest> userRepairRequests;
     Context context;
-    OnRequestedServicesLongClick onRequestedServicesLongClick;
+    OnRequestedServicesListener onRequestedServicesListener;
 
     public RequestedServicesAdapter(Context context,
                                     List<UserRepairRequest> userRepairRequests,
-                                    OnRequestedServicesLongClick onRequestedServicesLongClick) {
+                                    OnRequestedServicesListener onRequestedServicesListener) {
 
         this.userRepairRequests = userRepairRequests;
         this.context = context;
-        this.onRequestedServicesLongClick = onRequestedServicesLongClick;
+        this.onRequestedServicesListener = onRequestedServicesListener;
 
     }
 
@@ -37,7 +37,7 @@ public class RequestedServicesAdapter extends RecyclerView.Adapter<RequestedServ
     public ServicesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.item_view_requested_service, parent, false);
-        return new ServicesViewHolder(view);
+        return new ServicesViewHolder(view, onRequestedServicesListener);
     }
 
     @Override
@@ -49,14 +49,14 @@ public class RequestedServicesAdapter extends RecyclerView.Adapter<RequestedServ
         holder.infoTv.setText(userRepairRequest.getInfo());
         holder.timeTv.setText(userRepairRequest.getDate());
 
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+        /*holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 view.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
                 onRequestedServicesLongClick.onRequestedServiceLongClick(userRepairRequest);
                 return true;
             }
-        });
+        });*/
 
     }
 
@@ -66,8 +66,9 @@ public class RequestedServicesAdapter extends RecyclerView.Adapter<RequestedServ
         return userRepairRequests.size();
     }
 
-    public class ServicesViewHolder extends RecyclerView.ViewHolder {
+    public class ServicesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
+        OnRequestedServicesListener onRequestedServicesListener;
         @BindView(R.id.tv_status_service_item)
         TextView statusTv;
         @BindView(R.id.tv_type_service_item)
@@ -77,14 +78,33 @@ public class RequestedServicesAdapter extends RecyclerView.Adapter<RequestedServ
         @BindView(R.id.tv_time_service_item)
         TextView timeTv;
 
-        public ServicesViewHolder(@NonNull View itemView) {
+        public ServicesViewHolder(@NonNull View itemView, OnRequestedServicesListener onRequestedServicesListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            this.onRequestedServicesListener = onRequestedServicesListener;
+        }
+
+        @Override
+        public void onClick(View view) {
+            UserRepairRequest userRepairRequest = userRepairRequests.get(getAdapterPosition());
+            if (userRepairRequest.isSelected()) {
+                userRepairRequest.setSelected(false);
+            } else {
+                userRepairRequest.setSelected(true);
+            }
+            onRequestedServicesListener.onClick(userRepairRequests.get(getAdapterPosition()), view);
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            onRequestedServicesListener.onLongClick(userRepairRequests.get(getAdapterPosition()), view);
+            return true;
         }
     }
 
-    public interface OnRequestedServicesLongClick {
-        void onRequestedServiceLongClick(UserRepairRequest userRepairRequest);
+    public interface OnRequestedServicesListener {
+        void onLongClick(UserRepairRequest userRepairRequest, View view);
+        void onClick(UserRepairRequest userRepairRequest, View view);
     }
 
 }

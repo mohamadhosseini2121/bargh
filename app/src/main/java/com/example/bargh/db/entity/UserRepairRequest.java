@@ -3,6 +3,7 @@ package com.example.bargh.db.entity;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 
 @Entity (primaryKeys = {"user","timestamp"} , tableName = "user_repair_requests")
 public class UserRepairRequest {
@@ -37,6 +38,9 @@ public class UserRepairRequest {
     @ColumnInfo(name = "timestamp")
     private String timestamp;
 
+    @Ignore
+    private boolean isSelected;
+
     public String getStateString (){
         switch (state) {
 
@@ -44,11 +48,21 @@ public class UserRepairRequest {
                 return "در حال بررسی";
             case STATE_DOING:
                 return "در حال انجام";
+            case STATE_DONE:
             default:
                 return "انجام شده";
         }
     }
 
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    @NonNull
     public String getTimestamp() { return timestamp; }
 
     public void setTimestamp(String timestamp) { this.timestamp = timestamp; }

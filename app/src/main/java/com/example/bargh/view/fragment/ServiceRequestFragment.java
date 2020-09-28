@@ -18,6 +18,7 @@ import android.widget.Button;
 
 import com.example.bargh.ApiService;
 import com.example.bargh.R;
+import com.example.bargh.adapter.RequestedServicesAdapter;
 import com.example.bargh.adapter.ServicesAdapter;
 import com.example.bargh.datamodel.Service;
 import com.google.android.material.appbar.AppBarLayout;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ServiceRequestFragment extends Fragment {
+public class ServiceRequestFragment extends Fragment{
 
     private final String TAG = "ServiceRequestFragment:";
     private View view;
@@ -67,8 +68,6 @@ public class ServiceRequestFragment extends Fragment {
         apiService.getAllServices(allServices -> {
             services.clear();
             services.addAll(allServices);
-            Log.d(TAG, "onReceived: allServices(0) name: " + allServices.get(0).getName() );
-            Log.d(TAG, "onReceived: services(0) name: " + allServices.get(0).getName() );
             servicesAdapter.notifyDataSetChanged();
             recyclerView.setVisibility(View.VISIBLE);
 
@@ -81,4 +80,6 @@ public class ServiceRequestFragment extends Fragment {
         toolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.app_titles_color));
 
     }
+
+
 }
