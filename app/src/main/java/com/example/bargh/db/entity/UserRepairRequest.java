@@ -11,6 +11,8 @@ public class UserRepairRequest {
     public static final int STATE_PENDING = 0;
     public static final int STATE_DOING = 1;
     public static final int STATE_DONE = 2;
+    public static final int STATE_CANCELLED = 3;
+
 
     @ColumnInfo(name = "type")
     private String type;
@@ -38,8 +40,17 @@ public class UserRepairRequest {
     @ColumnInfo(name = "timestamp")
     private String timestamp;
 
-    @Ignore
-    private boolean isSelected;
+    public UserRepairRequest (String type, String info, @NonNull String user, int state , double lat , double lng){
+
+        this.type = type;
+        this.info = info;
+        this.user = user;
+        this.state = state;
+        this.lat = lat;
+        this.lng = lng;
+    }
+
+    public UserRepairRequest () {}
 
     public String getStateString (){
         switch (state) {
@@ -49,17 +60,11 @@ public class UserRepairRequest {
             case STATE_DOING:
                 return "در حال انجام";
             case STATE_DONE:
-            default:
                 return "انجام شده";
+            case STATE_CANCELLED:
+            default:
+                return "لغو شده";
         }
-    }
-
-    public boolean isSelected() {
-        return isSelected;
-    }
-
-    public void setSelected(boolean selected) {
-        isSelected = selected;
     }
 
     @NonNull

@@ -15,48 +15,15 @@
     android:clickable="true"
     android:focusable="true">
 
-    <!-- navigation header layout -->
-    <include layout="@layout/layout_navigation_header" />
-
-
     <LinearLayout
-        android:id="@+id/item_view_profile_bottom_sheet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="5"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?attr/selectableItemBackground">
-
-        <ImageView
-            android:id="@+id/profile_image_bs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:paddingTop="@dimen/standard_margin_2x"
-            android:paddingBottom="@dimen/standard_margin_2x"
-            android:src="@drawable/ic_profile" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="4"
-            android:text="حساب کاربری" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/item_view_contact_us_bottom_sheet"
+        android:id="@+id/bs_item_contact_us_admin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="5">
 
         <ImageView
-            android:id="@+id/contact_us_image_bs"
+            android:id="@+id/bs_image_contact_us_admin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -75,14 +42,14 @@
 
 
     <LinearLayout
-        android:id="@+id/item_view_about_us_bottom_sheet"
+        android:id="@+id/bs_item_about_us_admin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="5">
 
         <ImageView
-            android:id="@+id/about_us_image_bs"
+            android:id="@+id/about_us_image_bs_admin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -98,5 +65,32 @@
             android:layout_weight="4"
             android:text="درباره ما" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bs_item_logout_admin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <ImageView
+            android:id="@+id/bs_image_logout_admin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:paddingTop="@dimen/standard_margin_2x"
+            android:paddingBottom="@dimen/standard_margin_2x"
+            android:src="@drawable/ic_about_us" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="4"
+            android:text="خروج از حساب کاربری" />
+    </LinearLayout>
+
+
 
 </LinearLayout>

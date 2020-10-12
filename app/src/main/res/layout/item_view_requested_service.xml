@@ -10,10 +10,12 @@
     android:layout_marginBottom="@dimen/standard_margin_half"
     android:layoutDirection="rtl"
     app:cardCornerRadius="@dimen/standard_card_corner_radius"
-    app:cardElevation="@dimen/standard_card_elevation">
+    app:cardElevation="@dimen/standard_card_elevation"
+    android:clickable="true" >
 
 
     <RelativeLayout
+        android:id="@+id/container_requested_service_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/standard_margin">

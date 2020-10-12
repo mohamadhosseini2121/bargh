@@ -14,11 +14,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.bargh.R;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.pouriahemati.phjustifiedtextview.PHJustifiedTextView;
-import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
@@ -70,7 +70,7 @@ public class ProductsDetailFragment extends Fragment {
                     String price = args.getProductPrice() + " تومان " ;
                     priceTv.setText(price);
                     infoTv.setText(args.getProductInfo());
-            Picasso.get().load(args.getProductImageUrl().replace("localhost", "192.168.1.10"))
+            Glide.with(requireContext()).load(args.getProductImageUrl().replace("localhost", "192.168.100.129"))
                     .placeholder(R.drawable.ic_placeholder)
                     .into(productImg);
 

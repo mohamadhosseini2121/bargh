@@ -8,5 +8,7 @@
 
     <color name="app_titles_color">#37474f</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="highlight_color">#FFE57F</color>
+    <color name="colorGray">#87ACBF</color>
 
 </resources>

@@ -9,19 +9,17 @@ import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.example.bargh.R;
 import com.example.bargh.adapter.MainPagerAdapter;
-import com.example.bargh.adapter.RequestedServicesAdapter;
 import com.example.bargh.db.AppDatabase;
 import com.example.bargh.db.entity.User;
-import com.example.bargh.db.entity.UserRepairRequest;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,14 +29,12 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.Objects;
 
-public class HomeFragment extends Fragment implements RequestedServicesAdapter.OnRequestedServicesListener {
+public class HomeFragment extends Fragment {
 
-    private final String TAG = "MainActivity";
+    private final String TAG = HomeFragment.class.getSimpleName();
 
     @BindView(R.id.item_view_profile_bottom_sheet)
     LinearLayout profileItemView;
-    @BindView(R.id.img_delete_main_ac)
-    ImageView deleteImg;
     @BindView(R.id.viewPager_main_ac)
     ViewPager2 viewPager2;
     @BindView(R.id.tabLayout_main_ac)
@@ -52,9 +48,8 @@ public class HomeFragment extends Fragment implements RequestedServicesAdapter.O
 
 
     private BottomSheetBehavior bottomSheetBehavior;
-    private UserRepairRequest choseToDeleteService = null;
-
     private MainPagerAdapter pagerAdapter;
+    public static User user = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,24 +62,17 @@ public class HomeFragment extends Fragment implements RequestedServicesAdapter.O
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init();
+
+        AppDatabase database = AppDatabase.getInstance(requireContext());
+        user = database.userDao().getFirst();
+
+
         profileItemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_userProfileFragment);
             }
         });
-        deleteImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((ServicesFragment)pagerAdapter.getFragment(0)).deleteRequestedService(choseToDeleteService);
-
-            }
-        });
-
-        AppDatabase database = AppDatabase.getInstance(requireContext());
-        User user = database.userDao().getFirst();
-        if (user != null)
-            Snackbar.make(view ,  " خوش امدی " + user.getFirstName() , Snackbar.LENGTH_SHORT).show();
 
     }
 
@@ -93,27 +81,38 @@ public class HomeFragment extends Fragment implements RequestedServicesAdapter.O
         setUpBottomAppBar();
 
         //click event over FAB
-        fab.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_serviceRequestFragment));
+        fab.setOnClickListener(view -> {
+            Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_serviceRequestFragment);
+        });
 
-        pagerAdapter = new MainPagerAdapter(getChildFragmentManager(), getLifecycle(),this);
+        pagerAdapter = new MainPagerAdapter(getChildFragmentManager(), getLifecycle());
         viewPager2.setAdapter(pagerAdapter);
-
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
                 if (tab.getPosition() == 0){
+                    //in service tab user need floating action button to give request
                     fab.show();
                     bottomAppBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
 
+
                 }else if(tab.getPosition() == 1){
+                    //in product tab we don't need floating action button so hide it
                     fab.hide();
                 }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                //service tab
+                if (tab.getPosition() == 0) {
+                    ServicesFragment servicesFragment = (ServicesFragment)(pagerAdapter.getFragment(0));
+                    if (servicesFragment.isActionMode()){
+                        servicesFragment.setActionMode(false);
+                    }
+                }
             }
 
             @Override
@@ -135,27 +134,14 @@ public class HomeFragment extends Fragment implements RequestedServicesAdapter.O
                     tab.setIcon(R.drawable.ic_products);
                     Objects.requireNonNull(tab.getIcon()).setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
                     break;
-                case 2:
-                    tab.setText("خریدها");
-                    tab.setIcon(R.drawable.ic_purchases);
-                    break;
+
             }
-
         });
-
         tabLayoutMediator.attach();
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
 
-    }
-
-    /**
-     * set up Bottom Bar
-     */
     private void setUpBottomAppBar() {
 
         //set bottom bar to Action bar as it is similar like Toolbar
@@ -163,9 +149,9 @@ public class HomeFragment extends Fragment implements RequestedServicesAdapter.O
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
 
         //click event over navigation menu like back arrow or hamburger icon
-        bottomAppBar.setNavigationOnClickListener(view -> bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED));
-
-
+        bottomAppBar.setNavigationOnClickListener(view -> {
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        });
         bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -187,30 +173,4 @@ public class HomeFragment extends Fragment implements RequestedServicesAdapter.O
 
     }
 
-    public void alignFabCenter () {
-        if (bottomAppBar.getFabAlignmentMode() == BottomAppBar.FAB_ALIGNMENT_MODE_END) {
-            bottomAppBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
-        }
-    }
-
-    public void alignFabEnd () {
-        if (bottomAppBar.getFabAlignmentMode() == BottomAppBar.FAB_ALIGNMENT_MODE_CENTER) {
-            bottomAppBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_END);
-        }
-    }
-
-
-    @Override
-    public void onLongClick(UserRepairRequest userRepairRequest, View view) {
-
-        choseToDeleteService = userRepairRequest;
-        alignFabEnd();
-        deleteImg.setVisibility(View.VISIBLE);
-
-    }
-
-    @Override
-    public void onClick(UserRepairRequest userRepairRequest, View view) {
-
-    }
 }

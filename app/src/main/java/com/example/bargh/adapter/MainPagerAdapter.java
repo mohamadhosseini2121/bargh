@@ -17,10 +17,9 @@ public class MainPagerAdapter extends FragmentStateAdapter {
 
     private ArrayList<Fragment> arrayList = new ArrayList<>();
 
-    public MainPagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle,
-                            RequestedServicesAdapter.OnRequestedServicesListener onRequestedServicesListener) {
+    public MainPagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
-        arrayList.add(new ServicesFragment(onRequestedServicesListener));
+        arrayList.add(new ServicesFragment());
         arrayList.add(new ProductsFragment());
     }
 

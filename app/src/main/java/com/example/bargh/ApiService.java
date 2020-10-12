@@ -30,12 +30,13 @@ public class ApiService {
     private final String TAG = "ApiService: ";
     private static ApiService instance;
     private Context context;
-    private final String showProduct_url = "http://192.168.1.10/bargh/ShowProducts.php";
-    private final String login_url = "http://192.168.1.10/bargh/Login.php";
-    private final String register_url = "http://192.168.1.10/bargh/register.php";
-    private final String getUserServices_url = "http://192.168.1.10/bargh/getUserServices.php";
-    private final String getAllServices_url = "http://192.168.1.10/bargh/getAllServices.php";
-    private final String removeUserRequestedService_url = "http://192.168.1.10/bargh/removeUserService.php";
+    private final String showProduct_url = "http://192.168.1.11/bargh/ShowProducts.php";
+    private final String login_url = "http://192.168.1.11/bargh/Login.php";
+    private final String register_url = "http://192.168.1.11/bargh/register.php";
+    private final String getUserServices_url = "http://192.168.1.11/bargh/getUserServices.php";
+    private final String getAllServices_url = "http://192.168.1.11/bargh/getAllServices.php";
+    private final String removeUserRequestedService_url = "http://192.168.1.11/bargh/removeUserService.php";
+    private final String sendUserRepairRequest_url = "http://192.168.1.11/bargh/sendUserRepairRequest.php";
 
 
     private ApiService (Context context){
@@ -49,6 +50,39 @@ public class ApiService {
         if (instance == null)
             instance = new ApiService(context);
         return instance;
+    }
+
+    public void sendRepairRequestToServer (UserRepairRequest userRepairRequest){
+
+        StringRequest request = new StringRequest(Request.Method.POST,
+                sendUserRepairRequest_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(TAG, "onResponse: sendRepairRequestToServer: " + response);
+                    }
+                },
+
+                error -> Log.e(TAG, "onErrorResponse: " + error.toString() )){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<>();
+                params.put("type", userRepairRequest.getType());
+                params.put("info", userRepairRequest.getInfo());
+                params.put("user", userRepairRequest.getUser());
+                params.put("state", String.valueOf(userRepairRequest.getState()));
+                params.put("lat", String.valueOf(userRepairRequest.getLat()));
+                params.put("lng", String.valueOf(userRepairRequest.getLng()));
+                return params;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(18000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        Volley.newRequestQueue(Objects.requireNonNull(context)).add(request);
+
+
     }
 
 

@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            tools:src="@drawable/tmp" />
+            tools:src="@drawable/nav_header" />
 
         <TextView
             android:id="@+id/name_title_product_detail"

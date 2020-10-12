@@ -7,14 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.bumptech.glide.Glide;
 import com.example.bargh.datamodel.Product;
 import com.example.bargh.R;
 import com.example.bargh.view.fragment.HomeFragmentDirections;
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,8 +48,11 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         holder.nameTv.setText(product.getName());
         holder.priceTv.setText(Integer.toString(product.getPrice()).concat(" تومان "));
         holder.infoTv.setText(product.getInfo());
-        Picasso.get().load(product.getProductImageUrl().replace("localhost", "192.168.1.10"))
+
+        Glide.with(context).load(product.getProductImageUrl().replace("localhost", "192.168.1.11"))
                 .placeholder(R.drawable.ic_placeholder)
+                .fitCenter()
+                .centerInside()
                 .into(holder.productImg);
 
         holder.itemView.setOnClickListener(view -> {

@@ -11,13 +11,14 @@
     android:layout_marginBottom="@dimen/standard_margin_half"
     android:layout_marginTop="@dimen/standard_margin_half"
     app:cardElevation="@dimen/standard_card_elevation"
-    app:cardCornerRadius="@dimen/standard_card_corner_radius">
+    app:cardCornerRadius="@dimen/standard_card_corner_radius"
+    android:clickable="true">
 
     <LinearLayout
+        android:id="@+id/container_service_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/colorAccent">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_service_name"
@@ -27,7 +28,7 @@
             android:layout_marginTop="@dimen/standard_margin"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorAccent"
             android:textSize="@dimen/normal_font_size"
             tools:text="نام سرویس" />
 
@@ -38,7 +39,7 @@
             android:layout_marginStart="@dimen/standard_margin"
             android:layout_marginTop="@dimen/standard_margin_half"
             android:layout_marginBottom="@dimen/standard_margin"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorAccent"
             android:textSize="@dimen/small_font_size"
             tools:text="توضیحاتی که در مورد سرویس مورد نظر داده شده است" />
 

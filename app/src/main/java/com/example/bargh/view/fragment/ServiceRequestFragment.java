@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.bargh.ApiService;
 import com.example.bargh.R;
@@ -22,6 +23,8 @@ import com.example.bargh.adapter.RequestedServicesAdapter;
 import com.example.bargh.adapter.ServicesAdapter;
 import com.example.bargh.datamodel.Service;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +44,8 @@ public class ServiceRequestFragment extends Fragment{
     RecyclerView recyclerView;
     @BindView(R.id.btn_next_step)
     Button nextStepBtn;
+    @BindView(R.id.et_info_service_request_frag)
+    EditText infoEt;
 
     private List<Service> services = new ArrayList<>();
 
@@ -57,7 +62,16 @@ public class ServiceRequestFragment extends Fragment{
         servicesAdapter = new ServicesAdapter(requireContext(), services);
         recyclerView.setAdapter(servicesAdapter);
 
-        nextStepBtn.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_serviceRequestFragment_to_locationFragment));
+        nextStepBtn.setOnClickListener(view -> {
+            if (!servicesAdapter.getSelectedServiceName().equals("-1")) {
+                ServiceRequestFragmentDirections.ActionServiceRequestFragmentToLocationFragment action =
+                        ServiceRequestFragmentDirections.actionServiceRequestFragmentToLocationFragment(
+                                servicesAdapter.getSelectedServiceName(),infoEt.getText().toString());
+                Navigation.findNavController(view).navigate(action);
+            }else{
+                Snackbar.make(view, "هیچکدام از خدمات انخاب نشده است!", Snackbar.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }

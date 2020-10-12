@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout_main_ac"
+            android:id="@+id/tabLayout_admin_frag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
@@ -24,7 +24,7 @@
             app:tabPaddingTop="@dimen/standard_margin_2x" />
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager_main_ac"
+            android:id="@+id/viewPager_admin_frag"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
@@ -32,7 +32,7 @@
     </LinearLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_app_bar_main_ac"
+        android:id="@+id/bottom_app_bar_admin_frag"
         style="@style/Widget.MaterialComponents.BottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
         app:menu="@menu/bottom_appbar_menu" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_main_ac"
+        android:id="@+id/fab_admin_frag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_fab_add"
@@ -58,7 +58,7 @@
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         app:maxImageSize="35dp" />
 
-    <include layout="@layout/bottom_sheet_main" />
+    <include layout="@layout/bottom_sheet_admin" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

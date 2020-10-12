@@ -19,8 +19,14 @@ public interface UserRepairRequestDao {
     @Query("SELECT * FROM user_repair_requests LIMIT 1")
     UserRepairRequest getFirst();
 
+    @Query("DELETE FROM user_repair_requests")
+    void wipeTable();
+
     @Insert
-    void insertAll(UserRepairRequest... userRepairRequests);
+    void insertAll(List<UserRepairRequest> userRepairRequests);
+
+    @Insert
+    void insert(UserRepairRequest userRepairRequest);
 
     @Delete
     void delete(UserRepairRequest userRepairRequest);

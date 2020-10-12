@@ -8,7 +8,7 @@ public class Service {
 
     private String info;
 
-    private boolean isSelected;
+    private boolean isSelected = false;
 
     public boolean isSelected() {
         return isSelected;
