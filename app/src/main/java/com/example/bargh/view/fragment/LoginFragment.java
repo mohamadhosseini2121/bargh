@@ -83,15 +83,12 @@ public class LoginFragment extends Fragment {
         });
 
         mSignInButton.setOnClickListener((View v) -> {
-
             attemptLogin();
             //Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homeFragment);
-
 
         });
 
         mSignUpButton.setOnClickListener((View v) -> {
-
             Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment);
 
         });
@@ -156,12 +153,10 @@ public class LoginFragment extends Fragment {
     }
 
     private boolean isMobileNumberValid(String mobileNumber) {
-
         return mobileNumber.startsWith("09") && mobileNumber.length() == 11;
     }
 
     private boolean isPasswordValid(String password) {
-
         return password.length() > 5;
     }
 
@@ -189,8 +184,8 @@ public class LoginFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    database.userDao().insert(user);
 
-                    database.userDao().insertAll(user);
                     Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homeFragment);
 
                 }

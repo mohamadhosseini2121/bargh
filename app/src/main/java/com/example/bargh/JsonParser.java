@@ -18,7 +18,34 @@ public class JsonParser {
 
 
     private static final String TAG = "JsonParser: ";
+    /*
+    public static List<UserRepairRequest> parsAllUsersRequestsJsonArray (JSONArray jsonArray) {
 
+        List<UserRepairRequest> userRepairRequests = new ArrayList<>();
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+
+            try {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                UserRepairRequest userRepairRequest = new UserRepairRequest();
+                userRepairRequest.setType(jsonObject.getString("type"));
+                userRepairRequest.setInfo(jsonObject.getString("info"));
+                userRepairRequest.setDate(jsonObject.getString("date"));
+                userRepairRequest.setUser(jsonObject.getString("user"));
+                userRepairRequest.setState(jsonObject.getInt("state"));
+                userRepairRequest.setTimestamp(String.valueOf(jsonObject.getInt("timestamp")));
+                userRepairRequest.setLat(jsonObject.getDouble("lat"));
+                userRepairRequest.setLng(jsonObject.getDouble("lng"));
+
+                userRepairRequests.add(userRepairRequest);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return userRepairRequests;
+    }
+    */
     public static List<Service> parsServicesJsonArray (JSONArray jsonArray) {
 
         List<Service> services = new ArrayList<>();
@@ -42,7 +69,7 @@ public class JsonParser {
         return services;
     }
 
-    public static List<UserRepairRequest> parsUserServicesJsonArray (JSONArray jsonArray){
+    public static List<UserRepairRequest> parsUsersRequestsJsonArray(JSONArray jsonArray){
 
         List<UserRepairRequest> userRepairRequests = new ArrayList<>();
 

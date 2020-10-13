@@ -33,14 +33,14 @@ public class ApiService {
     private final String showProduct_url = "http://192.168.1.11/bargh/ShowProducts.php";
     private final String login_url = "http://192.168.1.11/bargh/Login.php";
     private final String register_url = "http://192.168.1.11/bargh/register.php";
-    private final String getUserServices_url = "http://192.168.1.11/bargh/getUserServices.php";
+    private final String getUserRequests_url = "http://192.168.1.11/bargh/getUserRequests.php";
     private final String getAllServices_url = "http://192.168.1.11/bargh/getAllServices.php";
     private final String removeUserRequestedService_url = "http://192.168.1.11/bargh/removeUserService.php";
     private final String sendUserRepairRequest_url = "http://192.168.1.11/bargh/sendUserRepairRequest.php";
+    private final String getAllUsersRequests_url = "http://192.168.1.11/bargh/getAllUsersRequests.php";
 
 
     private ApiService (Context context){
-
         this.context = context;
     }
 
@@ -50,6 +50,22 @@ public class ApiService {
         if (instance == null)
             instance = new ApiService(context);
         return instance;
+    }
+
+    public void getAllUsersRequests (OnGettingAllUsersRequests onGettingAllUsersRequests) {
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
+                getAllUsersRequests_url, null,
+                response -> {
+                    onGettingAllUsersRequests.onReceived(JsonParser.parsUsersRequestsJsonArray((JSONArray)response));
+                },
+
+                error -> Log.e(TAG, "onErrorResponse: " + error.toString() ));
+
+        request.setRetryPolicy(new DefaultRetryPolicy(18000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        Volley.newRequestQueue(Objects.requireNonNull(context)).add(request);
     }
 
     public void sendRepairRequestToServer (UserRepairRequest userRepairRequest){
@@ -85,8 +101,7 @@ public class ApiService {
 
     }
 
-
-    public void getAllServices (onGettingAllServices onGettingAllServices) {
+    public void getAllServices (OnGettingAllServices onGettingAllServices) {
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
                 getAllServices_url, null,
@@ -102,11 +117,10 @@ public class ApiService {
 
         Volley.newRequestQueue(Objects.requireNonNull(context)).add(request);
 
-
     }
 
     public void deleteUserService (UserRepairRequest userRepairRequest,
-                                   onDeletingRequestedService onDeletingRequestedService) {
+                                   OnDeletingRequestedService onDeletingRequestedService) {
 
         StringRequest request = new StringRequest(Request.Method.POST,
                 removeUserRequestedService_url,
@@ -132,15 +146,14 @@ public class ApiService {
 
     }
 
-
     /**
      * this method gets all of services requested by a user specified by UserMobileNumber
      * @param UserMobileNumber
-     * @param onGettingUserServices
+     * @param onGettingUserRequests
      */
-    public void getUserServices (String UserMobileNumber, OnGettingUserServices onGettingUserServices){
+    public void getUserServices (String UserMobileNumber, OnGettingUserRequests onGettingUserRequests){
 
-        StringRequest request = new StringRequest(Request.Method.POST, getUserServices_url
+        StringRequest request = new StringRequest(Request.Method.POST, getUserRequests_url
                 , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -148,14 +161,14 @@ public class ApiService {
                 JSONArray jsonArray = null;
 
                 if (response.equals("error 200")) {
-                    onGettingUserServices.onReceived(null);
+                    onGettingUserRequests.onReceived(null);
                 }else {
                     try {
                         jsonArray = new JSONArray(response);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    onGettingUserServices.onReceived(JsonParser.parsUserServicesJsonArray(jsonArray));
+                    onGettingUserRequests.onReceived(JsonParser.parsUsersRequestsJsonArray(jsonArray));
                 }
             }
         }, new Response.ErrorListener() {
@@ -179,7 +192,6 @@ public class ApiService {
         Volley.newRequestQueue(context).add(request);
     }
 
-
     public void getProducts (OnProductsReceived onProductsReceived) {
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
@@ -196,7 +208,6 @@ public class ApiService {
         Volley.newRequestQueue(Objects.requireNonNull(context)).add(request);
 
     }
-
 
     public void UserLoginTask (String mNumber, String password,
                                  OnLoginResponseReceived onLoginResponseReceived){
@@ -230,7 +241,6 @@ public class ApiService {
         Volley.newRequestQueue(context).add(request);
 
     }
-
 
     public void UserRegisterTask (String firstName, String lastName, String mNumber,
                                   @Nullable String email, String password, int userType,
@@ -270,15 +280,19 @@ public class ApiService {
 
     }
 
-    public interface onDeletingRequestedService {
+    public interface OnGettingAllUsersRequests {
+        void onReceived (List<UserRepairRequest> requests);
+    }
+
+    public interface OnDeletingRequestedService {
         void onDelete (int rsp);
     }
 
-    public interface onGettingAllServices {
+    public interface OnGettingAllServices {
         void onReceived (List<Service> allServices);
     }
 
-    public interface OnGettingUserServices {
+    public interface OnGettingUserRequests {
         void onReceived (List<UserRepairRequest> rsp);
     }
 

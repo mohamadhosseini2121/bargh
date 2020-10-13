@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -80,7 +81,7 @@ public class ServicesFragment extends Fragment implements RequestedServicesAdapt
 
     public void getRepairRequestsFromServer () {
 
-        apiService.getUserServices(HomeFragment.user.getMobileNumber(), new ApiService.OnGettingUserServices() {
+        apiService.getUserServices(HomeFragment.user.getMobileNumber(), new ApiService.OnGettingUserRequests() {
             @Override
             public void onReceived(List<UserRepairRequest> rsp) {
                 if (rsp != null && !rsp.isEmpty()) {
@@ -108,6 +109,8 @@ public class ServicesFragment extends Fragment implements RequestedServicesAdapt
             bottomSheetBehavior = BottomSheetBehavior.from(homeFragment.bottomSheetLayout);
         }
         recyclerView.setAdapter(rsAdapter);
+
+        fab.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_serviceRequestFragment));
 
         bottomAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -145,7 +148,7 @@ public class ServicesFragment extends Fragment implements RequestedServicesAdapt
 
             UserRepairRequest userRepairRequest = userRepairRequests.get(i);
             if (userRepairRequest.getState() == UserRepairRequest.STATE_PENDING) {
-                apiService.deleteUserService(userRepairRequest, new ApiService.onDeletingRequestedService() {
+                apiService.deleteUserService(userRepairRequest, new ApiService.OnDeletingRequestedService() {
                     @Override
                     public void onDelete(int rsp) {
                         Log.d(TAG, "deleteRequestedServices: onDelete: rsp: " + rsp);

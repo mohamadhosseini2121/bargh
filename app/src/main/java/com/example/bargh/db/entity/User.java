@@ -3,10 +3,20 @@ package com.example.bargh.db.entity;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "users")
 public class User {
+
+    @Ignore
+    public static final int USER_TYPE_CLIENT = 0;
+    @Ignore
+    public static final int USER_TYPE_FIXER = 1;
+    @Ignore
+    public static final int USER_TYPE_ADMIN = 2;
+
+
 
     @ColumnInfo(name = "first_name")
     private String firstName;

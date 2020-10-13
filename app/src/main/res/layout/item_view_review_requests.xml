@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/standard_margin"
+    android:layout_marginTop="@dimen/standard_margin_half"
+    android:layout_marginEnd="@dimen/standard_margin"
+    android:layout_marginBottom="@dimen/standard_margin_half"
+    android:layoutDirection="rtl"
+    app:cardCornerRadius="@dimen/standard_card_corner_radius"
+    app:cardElevation="@dimen/standard_card_elevation"
+    android:clickable="true" >
+
+
+    <RelativeLayout
+        android:id="@+id/container_requested_review_requests_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/standard_margin">
+
+        <TextView
+            android:id="@+id/tv_status_title_review_requests_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/service_item_status_title"
+            android:textSize="@dimen/normal_font_size"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginBottom="@dimen/standard_margin_half"/>
+
+        <TextView
+            android:id="@+id/tv_type_title_review_requests_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/service_item_type_title"
+            android:textSize="@dimen/normal_font_size"
+            android:textColor="@android:color/black"
+            android:layout_below="@id/tv_status_title_review_requests_item"
+            android:layout_alignStart="@id/tv_status_title_review_requests_item"
+            android:layout_marginBottom="@dimen/standard_margin_half"/>
+
+        <TextView
+            android:id="@+id/tv_info_title_review_requests_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/service_item_info_title"
+            android:textSize="@dimen/normal_font_size"
+            android:textColor="@android:color/black"
+            android:layout_below="@id/tv_type_title_review_requests_item"
+            android:layout_alignStart="@id/tv_status_title_review_requests_item"
+            android:layout_marginBottom="@dimen/standard_margin_half"/>
+
+        <TextView
+            android:id="@+id/tv_time_review_requests_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="11:25"
+            android:textSize="@dimen/small_font_size"
+            android:layoutDirection="ltr"
+            android:textColor="@color/colorAccent"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/tv_status_review_requests_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/tv_status_title_review_requests_item"
+            android:layout_marginStart="@dimen/standard_margin_half"
+            android:layout_toStartOf="@id/tv_time_review_requests_item"
+            android:ellipsize="end"
+            android:maxLines="1"
+            tools:text="در حال بررسی"
+            android:textSize="@dimen/normal_font_size"
+            android:textColor="@color/colorAccent"/>
+
+        <TextView
+            android:id="@+id/tv_type_review_requests_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_margin_half"
+            tools:text="تعمیر آیفون"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/normal_font_size"
+            android:textColor="@color/colorAccent"
+            android:layout_toEndOf="@id/tv_type_title_review_requests_item"
+            android:layout_below="@id/tv_status_title_review_requests_item"/>
+
+        <TextView
+            android:id="@+id/tv_info_review_requests_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:textSize="@dimen/small_font_size"
+            android:textColor="@color/colorAccent"
+            android:maxLines="2"
+            android:ellipsize="end"
+            tools:text="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد."
+            android:layout_below="@id/tv_info_title_review_requests_item"/>
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

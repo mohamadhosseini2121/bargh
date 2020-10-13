@@ -3,10 +3,12 @@ package com.example.bargh.view.fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -16,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
 import com.example.bargh.R;
 import com.example.bargh.adapter.MainPagerAdapter;
 import com.example.bargh.db.AppDatabase;
@@ -23,7 +26,6 @@ import com.example.bargh.db.entity.User;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -50,6 +52,7 @@ public class HomeFragment extends Fragment {
     private BottomSheetBehavior bottomSheetBehavior;
     private MainPagerAdapter pagerAdapter;
     public static User user = null;
+    public static boolean userIsAdmin = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,12 +64,13 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        init();
 
         AppDatabase database = AppDatabase.getInstance(requireContext());
         user = database.userDao().getFirst();
+        if (user.getUserType() == User.USER_TYPE_ADMIN)
+            userIsAdmin = true;
 
-
+        init();
         profileItemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,101 +80,112 @@ public class HomeFragment extends Fragment {
 
     }
 
-    public void init () {
+    public void init() {
 
-        setUpBottomAppBar();
-
-        //click event over FAB
-        fab.setOnClickListener(view -> {
-            Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_serviceRequestFragment);
-        });
+        initBottomAppBar();
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
         pagerAdapter = new MainPagerAdapter(getChildFragmentManager(), getLifecycle());
+        if (userIsAdmin) {
+            pagerAdapter.addFragment(new ReviewRequestsFragment());
+            pagerAdapter.addFragment(new ProductsFragment());
+
+        }else {
+            pagerAdapter.addFragment(new ServicesFragment());
+            pagerAdapter.addFragment(new ProductsFragment());
+        }
+
         viewPager2.setAdapter(pagerAdapter);
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                if (tab.getPosition() == 0){
-                    //in service tab user need floating action button to give request
-                    fab.show();
-                    bottomAppBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
-
-
-                }else if(tab.getPosition() == 1){
-                    //in product tab we don't need floating action button so hide it
-                    fab.hide();
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                //service tab
-                if (tab.getPosition() == 0) {
-                    ServicesFragment servicesFragment = (ServicesFragment)(pagerAdapter.getFragment(0));
-                    if (servicesFragment.isActionMode()){
-                        servicesFragment.setActionMode(false);
-                    }
-                }
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
-            int tabIconColor = ContextCompat.getColor(requireContext(), R.color.colorWhite);
-            switch (position) {
-
-                case 0:
-                    tab.setText("خدمات");
-                    tab.setIcon(R.drawable.ic_services);
-                    Objects.requireNonNull(tab.getIcon()).setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
-                    break;
-                case 1:
-                    tab.setText("محصولات");
-                    tab.setIcon(R.drawable.ic_products);
-                    Objects.requireNonNull(tab.getIcon()).setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
-                    break;
-
-            }
-        });
-        tabLayoutMediator.attach();
+        initTabLayout(viewPager2, pagerAdapter);
 
     }
 
 
-    private void setUpBottomAppBar() {
-
+    private void initBottomAppBar() {
         //set bottom bar to Action bar as it is similar like Toolbar
-        ((AppCompatActivity)requireActivity()).setSupportActionBar(bottomAppBar);
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(bottomAppBar);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
 
         //click event over navigation menu like back arrow or hamburger icon
         bottomAppBar.setNavigationOnClickListener(view -> {
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
         });
-        bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                switch (newState){
-                    case BottomSheetBehavior.STATE_COLLAPSED:
-                    case BottomSheetBehavior.STATE_HIDDEN:
-                        fab.show();
+
+    }
+
+    public void initTabLayout(ViewPager2 viewPager2, MainPagerAdapter pagerAdapter) {
+
+        if (userIsAdmin) {
+
+            TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
+                int tabIconColor = ContextCompat.getColor(requireContext(), R.color.colorWhite);
+                switch (position) {
+                    case 0:
+                        tab.setText("درخواست ها");
+                        tab.setIcon(R.drawable.ic_services);
+                        Objects.requireNonNull(tab.getIcon()).setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
                         break;
-                    case BottomSheetBehavior.STATE_EXPANDED:
-                    case BottomSheetBehavior.STATE_HALF_EXPANDED:
-                        fab.hide();
-                        break;
+                    case 1:
+                        tab.setText("محصولاتا");
+                        tab.setIcon(R.drawable.ic_products);
+                        Objects.requireNonNull(tab.getIcon()).setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+
                 }
-            }
+            });
+            tabLayoutMediator.attach();
 
-            @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset) { fab.hide(); }
-        });
+        } else {
 
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+
+                    if (tab.getPosition() == 0) {
+                        //in service tab user need floating action button to give request
+                        fab.show();
+                        bottomAppBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
+
+                    } else if (tab.getPosition() == 1) {
+                        //in product tab for clients we don't need floating action button so hide it
+                        // only show fab to admin
+                        if (!userIsAdmin)
+                            fab.hide();
+                    }
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+                    //service tab
+                    if (tab.getPosition() == 0) {
+                        ServicesFragment servicesFragment = (ServicesFragment) (pagerAdapter.getFragment(0));
+                        if (servicesFragment.isActionMode()) {
+                            servicesFragment.setActionMode(false);
+                        }
+                    }
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {}
+            });
+            TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
+                int tabIconColor = ContextCompat.getColor(requireContext(), R.color.colorWhite);
+                switch (position) {
+
+                    case 0:
+                        tab.setText("خدمات");
+                        tab.setIcon(R.drawable.ic_services);
+                        Objects.requireNonNull(tab.getIcon()).setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+                        break;
+                    case 1:
+                        tab.setText("محصولات");
+                        tab.setIcon(R.drawable.ic_products);
+                        Objects.requireNonNull(tab.getIcon()).setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+                        break;
+
+                }
+            });
+            tabLayoutMediator.attach();
+        }
     }
 
 }

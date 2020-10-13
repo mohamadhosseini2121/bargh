@@ -8,9 +8,13 @@ import androidx.room.Ignore;
 @Entity (primaryKeys = {"user","timestamp"} , tableName = "user_repair_requests")
 public class UserRepairRequest {
 
+    @Ignore
     public static final int STATE_PENDING = 0;
+    @Ignore
     public static final int STATE_DOING = 1;
+    @Ignore
     public static final int STATE_DONE = 2;
+    @Ignore
     public static final int STATE_CANCELLED = 3;
 
 

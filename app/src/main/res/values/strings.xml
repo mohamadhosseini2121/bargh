@@ -49,6 +49,7 @@
     <string name="btn_submit_text_location_frag">ثبت درخواست</string>
     <string name="bottom_appbar_menu_select_all">انتخاب همه</string>
     <string name="bottom_appbar_menu_delete">حذف</string>
+    <string name="no_repair_request_at_all">هیچ درخواستی وجود ندارد</string>
 
 
 </resources>

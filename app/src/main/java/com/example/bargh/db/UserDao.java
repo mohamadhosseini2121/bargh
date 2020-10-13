@@ -16,13 +16,17 @@ public interface UserDao {
     @Query("SELECT * FROM users LIMIT 1")
     User getFirst();
 
-    @Query("DELETE FROM users")
-    void deleteAll();
-
     @Insert
     void insertAll(User... users);
 
+    @Insert
+    void insert(User user);
+
+    @Query("DELETE FROM users")
+    void deleteAll();
+
     @Delete
     void delete(User user);
+
 
 }
