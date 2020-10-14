@@ -59,7 +59,7 @@ public class ServiceRequestFragment extends Fragment{
         setupToolbar();
         apiService = ApiService.getInstance(requireContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false));
-        servicesAdapter = new ServicesAdapter(requireContext(), services);
+        servicesAdapter = new ServicesAdapter(requireContext(), services, false);
         recyclerView.setAdapter(servicesAdapter);
 
         nextStepBtn.setOnClickListener(view -> {

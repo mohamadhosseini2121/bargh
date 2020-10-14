@@ -223,7 +223,7 @@ public class LocationFragment extends Fragment {
                                 markerLocation.latitude,
                                 markerLocation.longitude);
 
-                        ApiService.getInstance(requireContext()).sendRepairRequestToServer(userRepairRequest);
+                        ApiService.getInstance(requireContext()).addUserRepairRequest(userRepairRequest);
                         Navigation.findNavController(view).navigate(R.id.action_locationFragment_to_homeFragment);
 
                     }

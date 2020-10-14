@@ -89,6 +89,7 @@ public class HomeFragment extends Fragment {
         if (userIsAdmin) {
             pagerAdapter.addFragment(new ReviewRequestsFragment());
             pagerAdapter.addFragment(new ProductsFragment());
+            pagerAdapter.addFragment(new AdminServicesFragment());
 
         }else {
             pagerAdapter.addFragment(new ServicesFragment());
@@ -116,19 +117,45 @@ public class HomeFragment extends Fragment {
     public void initTabLayout(ViewPager2 viewPager2, MainPagerAdapter pagerAdapter) {
 
         if (userIsAdmin) {
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+
+                    if (tab.getPosition() == 0) {
+                        fab.hide();
+
+                    } else {
+                        fab.show();
+                        bottomAppBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
+                    }
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {}
+            });
 
             TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
                 int tabIconColor = ContextCompat.getColor(requireContext(), R.color.colorWhite);
                 switch (position) {
                     case 0:
                         tab.setText("درخواست ها");
-                        tab.setIcon(R.drawable.ic_services);
+                        tab.setIcon(R.drawable.ic_pending_actions);
                         Objects.requireNonNull(tab.getIcon()).setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
                         break;
                     case 1:
-                        tab.setText("محصولاتا");
+                        tab.setText("محصولات");
                         tab.setIcon(R.drawable.ic_products);
                         Objects.requireNonNull(tab.getIcon()).setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+                        break;
+                    case 2:
+                        tab.setText("خدمات");
+                        tab.setIcon(R.drawable.ic_services);
+                        Objects.requireNonNull(tab.getIcon()).setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+                        break;
 
                 }
             });
@@ -148,8 +175,7 @@ public class HomeFragment extends Fragment {
                     } else if (tab.getPosition() == 1) {
                         //in product tab for clients we don't need floating action button so hide it
                         // only show fab to admin
-                        if (!userIsAdmin)
-                            fab.hide();
+                        fab.hide();
                     }
                 }
 

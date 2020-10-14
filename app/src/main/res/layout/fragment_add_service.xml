@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    android:layoutDirection="rtl"
+    tools:context=".view.fragment.AddServiceFragment">
+
+    <ProgressBar
+        android:id="@+id/progress_bar_add_service"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_margin"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorPrimary"
+        android:indeterminateTintMode="src_in"
+        android:visibility="gone"/>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_add_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:fitsSystemWindows="true">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_add_service"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="خدمات"
+        app:titleTextColor="@color/app_titles_color"
+        android:background="@color/colorPrimary" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_name_add_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_margin_2x"
+        android:layout_marginBottom="@dimen/standard_margin_2x"
+        android:hint="نام سرویس موردنظر"
+        android:padding="@dimen/standard_margin_2x"
+        android:layout_below="@id/app_bar_add_service"
+        app:boxBackgroundColor="@color/colorWhite">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_name_add_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/shabnam"
+            android:inputType="text"
+            android:textSize="@dimen/normal_font_size" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_info_add_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/standard_margin_2x"
+        android:hint="توضیحاتی در مورد سرویس"
+        android:padding="@dimen/standard_margin_2x"
+        app:boxBackgroundColor="@color/colorWhite"
+        android:layout_below="@id/til_name_add_service">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_info_add_service"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:fontFamily="@font/shabnam"
+            android:inputType="text"
+            android:textSize="@dimen/normal_font_size" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_add_service"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:fontFamily="@font/shabnam_bold"
+        android:textSize="@dimen/button_text_size"
+        android:text="ثبت سرویس"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_margin="@dimen/standard_margin"
+        android:layout_alignParentBottom="true"/>
+
+
+</RelativeLayout>

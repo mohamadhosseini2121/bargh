@@ -2,25 +2,14 @@ package com.example.bargh.datamodel;
 
 public class Service {
 
-    private int id;
-
     private String name;
 
     private String info;
 
-    private boolean isSelected = false;
-
-    public boolean isSelected() {
-        return isSelected;
+    public Service (String name , String info) {
+        this.name = name;
+        this.info = info;
     }
-
-    public void setSelected(boolean selected) {
-        isSelected = selected;
-    }
-
-    public int getId() { return id; }
-
-    public void setId(int id) { this.id = id; }
 
     public String getName() { return name; }
 

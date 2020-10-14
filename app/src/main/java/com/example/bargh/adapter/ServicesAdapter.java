@@ -10,10 +10,13 @@ import android.widget.TextView;
 
 import com.example.bargh.R;
 import com.example.bargh.datamodel.Service;
+
 import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -24,18 +27,19 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
     private Context context;
     private List<Service> services;
     private int selectedItemPos = -1;
+    private boolean userIsAdmin = false;
 
-    public ServicesAdapter(Context context, List<Service> services) {
+    public ServicesAdapter(Context context, List<Service> services, boolean userIsAdmin) {
 
         this.context = context;
         this.services = services;
-
+        this.userIsAdmin = userIsAdmin;
     }
 
     @NonNull
     @Override
     public ServiceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_view_service,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_view_service, parent, false);
         return new ServiceViewHolder(view);
     }
 
@@ -45,18 +49,21 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
         holder.nameTv.setText(service.getName());
         holder.infoTv.setText(service.getInfo());
 
-        if (selectedItemPos == position){
-            holder.container.setBackgroundColor(ContextCompat.getColor(context, R.color.highlight_color));}
-        else
-            holder.container.setBackgroundColor(ContextCompat.getColor(context, R.color.transparent));
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectedItemPos = position;
-                notifyDataSetChanged();
-            }
-        });
+        if (!userIsAdmin) {
+            if (selectedItemPos == position) {
+                holder.container.setBackgroundColor(ContextCompat.getColor(context, R.color.highlight_color));
+            } else
+                holder.container.setBackgroundColor(ContextCompat.getColor(context, R.color.transparent));
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    selectedItemPos = position;
+                    notifyDataSetChanged();
+                }
+            });
+        }
     }
 
     @Override
@@ -84,7 +91,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
 
         public ServiceViewHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

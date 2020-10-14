@@ -31,6 +31,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ServicesFragment extends Fragment implements RequestedServicesAdapter.OnRequestedServicesListener {
@@ -90,6 +91,7 @@ public class ServicesFragment extends Fragment implements RequestedServicesAdapt
                     database.userRepairRequestDao().insertAll(rsp);
                     userRepairRequests.clear();
                     userRepairRequests.addAll(rsp);
+                    Collections.reverse(userRepairRequests);
                     rsAdapter.notifyDataSetChanged();
                     recyclerView.scrollToPosition(rsAdapter.getItemCount() - 1);
                 }
@@ -99,7 +101,7 @@ public class ServicesFragment extends Fragment implements RequestedServicesAdapt
 
     public void initViews () {
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, true));
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false));
         apiService = ApiService.getInstance(requireContext());
         HomeFragment homeFragment = ((HomeFragment) ServicesFragment.this.getParentFragment());
         if (homeFragment != null) {

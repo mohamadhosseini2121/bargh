@@ -12,40 +12,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class JsonParser {
 
 
     private static final String TAG = "JsonParser: ";
-    /*
-    public static List<UserRepairRequest> parsAllUsersRequestsJsonArray (JSONArray jsonArray) {
 
-        List<UserRepairRequest> userRepairRequests = new ArrayList<>();
-
-        for (int i = 0; i < jsonArray.length(); i++) {
-
-            try {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                UserRepairRequest userRepairRequest = new UserRepairRequest();
-                userRepairRequest.setType(jsonObject.getString("type"));
-                userRepairRequest.setInfo(jsonObject.getString("info"));
-                userRepairRequest.setDate(jsonObject.getString("date"));
-                userRepairRequest.setUser(jsonObject.getString("user"));
-                userRepairRequest.setState(jsonObject.getInt("state"));
-                userRepairRequest.setTimestamp(String.valueOf(jsonObject.getInt("timestamp")));
-                userRepairRequest.setLat(jsonObject.getDouble("lat"));
-                userRepairRequest.setLng(jsonObject.getDouble("lng"));
-
-                userRepairRequests.add(userRepairRequest);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        return userRepairRequests;
-    }
-    */
     public static List<Service> parsServicesJsonArray (JSONArray jsonArray) {
 
         List<Service> services = new ArrayList<>();
@@ -54,9 +28,8 @@ public class JsonParser {
 
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                Service service = new Service();
-                service.setName(jsonObject.getString("name"));
-                service.setInfo(jsonObject.getString("info"));
+                Service service = new Service(jsonObject.getString("name"),
+                        jsonObject.getString("info"));
 
                 services.add(service);
 
@@ -116,7 +89,6 @@ public class JsonParser {
         return user;
     }
 
-
     public static List<Product> parsProductsJsonArray(JSONArray jsonArray) {
 
         List<Product> products = new ArrayList<>();
@@ -139,6 +111,18 @@ public class JsonParser {
         }
 
         return products;
+    }
+
+    public static HashMap<String,String> parsInsertResult (JSONObject jsonObject) {
+
+        HashMap<String, String> result = new HashMap<>();
+        try {
+            result.put("code", jsonObject.getString("code"));
+            result.put("content", jsonObject.getString("content"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 
