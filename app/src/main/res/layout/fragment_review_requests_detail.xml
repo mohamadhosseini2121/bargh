@@ -1,14 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="rtl"
     tools:context=".view.fragment.ReviewRequestsDetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.example.bargh.CustomScrollView
+        android:id="@+id/custom_scrollView_review_request_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:fillViewport="true"
+        android:orientation="vertical">
 
-</FrameLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_review_requests_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/standard_margin_half"
+            android:background="@color/colorPrimary"
+            android:fitsSystemWindows="true">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_review_requests_detail"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                app:title="مشخصات درخواست"
+                app:titleTextColor="@color/app_titles_color" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar_review_requests_detail"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/standard_margin"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorPrimary"
+            android:indeterminateTintMode="src_in"
+            android:visibility="gone" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_status_review_requests_detail"
+            app:boxStrokeWidth="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/btn_change_state_review_requests_detail"
+            android:layout_below="@id/app_bar_review_requests_detail"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:hint="@string/service_item_status_title"
+            app:boxBackgroundColor="@color/colorWhite">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="در حال بررسی"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/normal_font_size"
+                android:inputType="none"
+                android:focusable="false"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_type_review_requests_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/til_status_review_requests_detail"
+            android:layout_alignStart="@id/til_status_review_requests_detail"
+            android:layout_marginEnd="@dimen/standard_margin"
+            app:boxStrokeWidth="0dp"
+            app:boxBackgroundColor="@color/colorWhite"
+            android:hint="@string/service_item_type_title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/normal_font_size"
+                android:inputType="none"
+                android:focusable="false"
+                tools:text="تعمیر ایفون"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_user_review_requests_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:boxStrokeWidth="0dp"
+            app:boxBackgroundColor="@color/colorWhite"
+            android:layout_toStartOf="@id/btn_call_user_review_requests_detail"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:layout_below="@id/til_type_review_requests_detail"
+            android:layout_alignStart="@id/til_status_review_requests_detail"
+            android:hint="@string/user_mobile_number_title_review_request">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="09123456789"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/normal_font_size"
+                android:inputType="none"
+                android:focusable="false"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_time_review_requests_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/request_time_title_review_request"
+            app:boxStrokeWidth="0dp"
+            app:boxBackgroundColor="@color/colorWhite"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:layout_alignStart="@id/til_status_review_requests_detail"
+            android:layout_below="@id/til_user_review_requests_detail">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/normal_font_size"
+                tools:text="99/07/23 11:07"
+                android:inputType="none"
+                android:focusable="false"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_info_review_requests_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeWidth="0dp"
+            app:boxBackgroundColor="@color/colorWhite"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:layout_below="@id/til_time_review_requests_detail"
+            android:layout_alignStart="@id/til_status_review_requests_detail"
+            android:hint="@string/info_title_review_request">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/normal_font_size"
+                tools:text="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد."
+                android:inputType="none"
+                android:focusable="false"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_container_position_review_requests_detail"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="@dimen/standard_margin"
+            android:layout_below="@id/til_info_review_requests_detail"
+            tools:background="@color/colorAccent"/>
+
+        <Button
+            android:id="@+id/btn_change_state_review_requests_detail"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:layout_below="@id/app_bar_review_requests_detail"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@id/til_status_review_requests_detail"
+            android:layout_alignTop="@id/til_status_review_requests_detail"
+            android:textSize="@dimen/button_text_size"
+            android:fontFamily="@font/shabnam_bold"
+            android:text="@string/change_status_btn_review_request"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:backgroundTint="@color/colorPrimary"/>
+
+        <Button
+            android:id="@+id/btn_call_user_review_requests_detail"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@id/til_user_review_requests_detail"
+            android:layout_alignTop="@id/til_user_review_requests_detail"
+            android:textSize="@dimen/button_text_size"
+            android:fontFamily="@font/shabnam_bold"
+            android:text="@string/call_btn_review_request"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:backgroundTint="@color/colorPrimary"/>
+
+    </RelativeLayout>
+
+    </com.example.bargh.CustomScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

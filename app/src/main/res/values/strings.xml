@@ -52,5 +52,16 @@
     <string name="no_repair_request_at_all">هیچ درخواستی وجود ندارد</string>
     <string name="no_service_available">در حال حاضر شما هیچ خدماتی ارائه نمیدهید!</string>
 
+    <!-- Review Request Layout view hint and button texts -->
+    <string name="status_title_review_request">وضعیت</string>
+    <string name="type_title_review_request">نوع سرویس</string>
+    <string name="user_mobile_number_title_review_request">شماره همراه کاربر</string>
+    <string name="request_time_title_review_request">زمان ارسال درخواست</string>
+    <string name="info_title_review_request">توضیحات</string>
+    <string name="change_status_btn_review_request">تغییر وضعیت</string>
+    <string name="call_btn_review_request">تماس</string>
+
+
+
 
 </resources>

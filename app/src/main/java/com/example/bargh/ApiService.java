@@ -32,15 +32,16 @@ public class ApiService {
     private final String TAG = "ApiService: ";
     private static ApiService instance;
     private Context context;
-    private final String showProduct_url = "http://192.168.1.11/bargh/ShowProducts.php";
-    private final String login_url = "http://192.168.1.11/bargh/Login.php";
-    private final String register_url = "http://192.168.1.11/bargh/register.php";
-    private final String getUserRequests_url = "http://192.168.1.11/bargh/getUserRequests.php";
-    private final String getAllServices_url = "http://192.168.1.11/bargh/getAllServices.php";
-    private final String removeUserRequestedService_url = "http://192.168.1.11/bargh/removeUserService.php";
-    private final String sendUserRepairRequest_url = "http://192.168.1.11/bargh/addUserRepairRequest.php";
-    private final String getAllUsersRequests_url = "http://192.168.1.11/bargh/getAllUsersRequests.php";
-    private final String addService_url = "http://192.168.1.11/bargh/addService.php";
+    private static final String server = "http://192.168.43.209";
+    private final String showProduct_url =  server + "/bargh/ShowProducts.php";
+    private final String login_url = server + "/bargh/Login.php";
+    private final String register_url = server +  "/bargh/register.php";
+    private final String getUserRequests_url = server + "/bargh/getUserRequests.php";
+    private final String getAllServices_url = server + "/bargh/getAllServices.php";
+    private final String removeUserRequestedService_url = server + "/bargh/removeUserService.php";
+    private final String sendUserRepairRequest_url = server + "/bargh/addUserRepairRequest.php";
+    private final String getAllUsersRequests_url = server + "/bargh/getAllUsersRequests.php";
+    private final String addService_url = server + "/bargh/addService.php";
 
 
     private ApiService(Context context) {

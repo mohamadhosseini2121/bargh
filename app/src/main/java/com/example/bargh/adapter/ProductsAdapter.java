@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.example.bargh.ApiService;
 import com.example.bargh.datamodel.Product;
 import com.example.bargh.R;
 import com.example.bargh.view.fragment.HomeFragmentDirections;
@@ -46,10 +47,10 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
         Product product = products.get(position);
         holder.nameTv.setText(product.getName());
-        holder.priceTv.setText(Integer.toString(product.getPrice()).concat(" تومان "));
+        holder.priceTv.setText(Integer.toString(product.getPrice()));
         holder.infoTv.setText(product.getInfo());
 
-        Glide.with(context).load(product.getProductImageUrl().replace("localhost", "192.168.1.11"))
+        Glide.with(context).load(product.getProductImageUrl().replace("localhost", "192.168.43.209"))
                 .placeholder(R.drawable.ic_placeholder)
                 .fitCenter()
                 .centerInside()

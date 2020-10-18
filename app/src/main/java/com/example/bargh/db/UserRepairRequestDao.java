@@ -19,6 +19,9 @@ public interface UserRepairRequestDao {
     @Query("SELECT * FROM user_repair_requests LIMIT 1")
     UserRepairRequest getFirst();
 
+    @Query("SELECT * FROM user_repair_requests WHERE timestamp LIKE :mTimestamp AND user LIKE :mUser")
+    UserRepairRequest getRequest (String mUser, String mTimestamp);
+
     @Query("DELETE FROM user_repair_requests")
     void wipeTable();
 

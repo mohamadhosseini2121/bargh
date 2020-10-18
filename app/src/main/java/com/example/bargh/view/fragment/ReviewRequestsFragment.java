@@ -76,6 +76,7 @@ public class ReviewRequestsFragment extends Fragment {
             @Override
             public void onReceived(List<UserRepairRequest> requests) {
                 if (requests != null && !requests.isEmpty()) {
+                    storeRequestsInDatabase(requests);
                     userRepairRequests.clear();
                     userRepairRequests.addAll(requests);
                     rrAdapter.notifyDataSetChanged();
@@ -83,6 +84,12 @@ public class ReviewRequestsFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void storeRequestsInDatabase (List<UserRepairRequest> requests){
+        AppDatabase database = AppDatabase.getInstance(requireContext());
+        database.userRepairRequestDao().wipeTable();
+        database.userRepairRequestDao().insertAll(requests);
     }
 
     /**

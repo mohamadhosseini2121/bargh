@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_homeFragment_to_addServiceFragment"
             app:destination="@id/addServiceFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_reviewRequestsDetailFragment"
+            app:destination="@id/reviewRequestsDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -110,5 +113,20 @@
         <action
             android:id="@+id/action_addServiceFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewRequestsDetailFragment"
+        android:name="com.example.bargh.view.fragment.ReviewRequestsDetailFragment"
+        android:label="fragment_review_requests_detail"
+        tools:layout="@layout/fragment_review_requests_detail" >
+        <action
+            android:id="@+id/action_reviewRequestsDetailFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <argument
+            android:name="user"
+            app:argType="string" />
+        <argument
+            android:name="timestamp"
+            app:argType="string" />
     </fragment>
 </navigation>

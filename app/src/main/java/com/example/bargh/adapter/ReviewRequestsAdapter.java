@@ -6,12 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.bargh.R;
 import com.example.bargh.db.entity.UserRepairRequest;
+import com.example.bargh.view.fragment.HomeFragmentDirections;
 
 import java.util.List;
 
@@ -45,6 +45,13 @@ public class ReviewRequestsAdapter extends RecyclerView.Adapter<ReviewRequestsAd
         holder.infoTv.setText(request.getInfo());
         holder.timeTv.setText(request.getDate());
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view)
+            .navigate(HomeFragmentDirections.actionHomeFragmentToReviewRequestsDetailFragment(request.getUser(),request.getTimestamp()));
+            }
+        });
     }
 
     @Override

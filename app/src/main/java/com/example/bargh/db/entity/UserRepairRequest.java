@@ -1,9 +1,14 @@
 package com.example.bargh.db.entity;
 
+import android.widget.ArrayAdapter;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity (primaryKeys = {"user","timestamp"} , tableName = "user_repair_requests")
 public class UserRepairRequest {
@@ -59,6 +64,21 @@ public class UserRepairRequest {
     public String getStateString (){
         switch (state) {
 
+            case STATE_PENDING:
+                return "در حال بررسی";
+            case STATE_DOING:
+                return "در حال انجام";
+            case STATE_DONE:
+                return "انجام شده";
+            case STATE_CANCELLED:
+            default:
+                return "لغو شده";
+        }
+    }
+
+    public String getStateStringByKey(int key){
+
+        switch (key) {
             case STATE_PENDING:
                 return "در حال بررسی";
             case STATE_DOING:
