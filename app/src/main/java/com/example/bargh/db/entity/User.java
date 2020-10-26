@@ -1,5 +1,7 @@
 package com.example.bargh.db.entity;
 
+import android.graphics.drawable.Drawable;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -15,7 +17,6 @@ public class User {
     public static final int USER_TYPE_FIXER = 1;
     @Ignore
     public static final int USER_TYPE_ADMIN = 2;
-
 
 
     @ColumnInfo(name = "first_name")
@@ -35,7 +36,10 @@ public class User {
     @ColumnInfo(name = "user_type")
     private int userType;
 
-    public User (String firstName , String lastName , String email , @NonNull String mobileNumber , int userType) {
+    @ColumnInfo(name = "user_pic_url")
+    private String userPicUrl;
+
+    public User(String firstName, String lastName, String email, @NonNull String mobileNumber, int userType) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -43,6 +47,23 @@ public class User {
         this.userType = userType;
     }
 
+    @Ignore
+    public User(String firstName, String lastName, String email, @NonNull String mobileNumber, int userType, String userPicUrl) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.mobileNumber = mobileNumber;
+        this.userType = userType;
+    }
+
+
+    public String getUserPicUrl() {
+        return userPicUrl;
+    }
+
+    public void setUserPicUrl(String userPicUrl) {
+        this.userPicUrl = userPicUrl;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -68,11 +89,12 @@ public class User {
         this.email = email;
     }
 
+    @NonNull
     public String getMobileNumber() {
         return mobileNumber;
     }
 
-    public void setMobileNumber(String mobileNumber) {
+    public void setMobileNumber(@NonNull String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
 

@@ -18,5 +18,20 @@
         <item name="android:textColorSecondary">#FFFF</item>
     </style>
 
+    <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="cornerRadius">@dimen/standard_card_corner_radius</item>
+        <item name="android:headerDividersEnabled">true</item>
+        <item name="fontFamily">@font/shabnam</item>
+        <item name="android:layoutDirection">rtl</item>
+    </style>
+
+
+    <style name="circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+        <item name="android:backgroundTintMode">src_in</item>
+        <item name="android:backgroundTint">@color/transparent</item>
+    </style>
+
 
 </resources>

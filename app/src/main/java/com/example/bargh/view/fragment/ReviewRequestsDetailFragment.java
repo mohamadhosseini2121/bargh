@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,6 +14,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 
@@ -19,7 +23,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.example.bargh.ApiService;
 import com.example.bargh.CustomScrollView;
 import com.example.bargh.R;
 import com.example.bargh.db.AppDatabase;
@@ -29,7 +35,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -61,7 +67,9 @@ public class ReviewRequestsDetailFragment extends Fragment {
     @BindView(R.id.btn_change_state_review_requests_detail)
     Button changeStateBtn;
 
-    private View view;
+    private View fragView;
+    private int oldState = 0;
+    private int newState = 0;
 
     private UserRepairRequest request = null;
 
@@ -76,10 +84,10 @@ public class ReviewRequestsDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_review_requests_detail, container, false);
-        ButterKnife.bind(this, view);
+        fragView = inflater.inflate(R.layout.fragment_review_requests_detail, container, false);
+        ButterKnife.bind(this, fragView);
         init();
-        return view;
+        return fragView;
     }
 
     public void init() {
@@ -91,10 +99,10 @@ public class ReviewRequestsDetailFragment extends Fragment {
         callBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (request != null){
-                Uri number = Uri.parse("tel:" + request.getUser());
-                Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
-                startActivity(callIntent);
+                if (request != null) {
+                    Uri number = Uri.parse("tel:" + request.getUser());
+                    Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+                    startActivity(callIntent);
                 }
             }
         });
@@ -106,11 +114,10 @@ public class ReviewRequestsDetailFragment extends Fragment {
         });
     }
 
-    private void showChangeStateDialog () {
+    private void showChangeStateDialog() {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(requireContext());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(requireContext(),R.style.AlertDialogTheme);
         alertDialog.setTitle("تغییر وضعیت");
-        
         UserRepairRequest repairRequest = new UserRepairRequest();
         List<String> states = new ArrayList<>();
         states.add(repairRequest.getStateStringByKey(UserRepairRequest.STATE_PENDING));
@@ -123,6 +130,7 @@ public class ReviewRequestsDetailFragment extends Fragment {
         alertDialog.setSingleChoiceItems(items, request.getState(), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                newState = which;
             }
         });
         alertDialog.setNegativeButton("لغو", new DialogInterface.OnClickListener() {
@@ -130,20 +138,59 @@ public class ReviewRequestsDetailFragment extends Fragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
             }
-        })
-                .setNeutralButton("تغییر", new DialogInterface.OnClickListener() {
+        }).setPositiveButton("تغییر", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        changeState(i);
+                        changeState(newState);
+                        dialogInterface.dismiss();
                     }
-                });
-        AlertDialog alert = alertDialog.create();;
+        });
+        AlertDialog alert = alertDialog.create();
+        alert.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                Typeface typeface = ResourcesCompat.getFont(requireContext(), R.font.shabnam_bold);
+                Button negativeButton = ((AlertDialog)alert).getButton(DialogInterface.BUTTON_NEGATIVE);
+                negativeButton.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorPrimary));
+                negativeButton.setTypeface(typeface);
+
+                Button positiveButton = ((AlertDialog)alert).getButton(DialogInterface.BUTTON_POSITIVE);
+                positiveButton.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorPrimary));
+                positiveButton.setTypeface(typeface);
+
+                Resources resources = alert.getContext().getResources();
+                int color = resources.getColor(R.color.colorPrimary); // your color here
+
+                int alertTitleId = resources.getIdentifier("alertTitle", "id", "android");
+                TextView alertTitle = (TextView) alert.getWindow().getDecorView().findViewById(alertTitleId);
+                alertTitle.setTextColor(color); // change title text color
+
+                int titleDividerId = resources.getIdentifier("titleDivider", "id", "android");
+                View titleDivider = alert.getWindow().getDecorView().findViewById(titleDividerId);
+                titleDivider.setBackgroundColor(color); // change divider color
+            }
+        });
         alert.show();
     }
 
-    private void changeState (int state) {
+    private void changeState(int state) {
+        ApiService apiService = ApiService.getInstance(requireContext());
+        oldState = request.getState();
+        request.setState(state);
+        apiService.changeUserRepairRequestState(request, new ApiService.OnChangingUserRepairRequest() {
+            @Override
+            public void onStateChangeResult(HashMap<String, String> result) {
+                String code = result.get("code");
+                String content = result.get("content");
+                if (code != null && content != null) {
+                    if (code.equals("0"))
+                        request.setState(oldState);
 
-        Snackbar.make(view, "وضعیت انتخاب شده: " + state, Snackbar.LENGTH_SHORT).show();
+                    setTextViewsValues();
+                    Snackbar.make(fragView, content, Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void setRequestPositionMap() {
@@ -182,13 +229,13 @@ public class ReviewRequestsDetailFragment extends Fragment {
         AppDatabase database = AppDatabase.getInstance(requireContext());
         if (getArguments() != null) {
             ReviewRequestsDetailFragmentArgs args = ReviewRequestsDetailFragmentArgs.fromBundle(getArguments());
-            request = database.userRepairRequestDao().getRequest(args.getUser(),args.getTimestamp());
+            request = database.userRepairRequestDao().getRequest(args.getUser(), args.getTimestamp());
         }
     }
 
-    public void initToolbar () {
-        ((AppCompatActivity)requireActivity()).setSupportActionBar(toolbar);
-        ActionBar actionBar = ((AppCompatActivity)requireActivity()).getSupportActionBar();
+    public void initToolbar() {
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }

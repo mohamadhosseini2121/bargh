@@ -1,25 +1,29 @@
 package com.example.bargh;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bargh.datamodel.Service;
 import com.example.bargh.datamodel.Product;
+import com.example.bargh.db.entity.User;
 import com.example.bargh.db.entity.UserRepairRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,16 +36,19 @@ public class ApiService {
     private final String TAG = "ApiService: ";
     private static ApiService instance;
     private Context context;
-    private static final String server = "http://192.168.43.209";
-    private final String showProduct_url =  server + "/bargh/ShowProducts.php";
+    private static final String server = "http://192.168.1.9";
+    private final String showProduct_url = server + "/bargh/ShowProducts.php";
     private final String login_url = server + "/bargh/Login.php";
-    private final String register_url = server +  "/bargh/register.php";
+    private final String register_url = server + "/bargh/register.php";
     private final String getUserRequests_url = server + "/bargh/getUserRequests.php";
     private final String getAllServices_url = server + "/bargh/getAllServices.php";
     private final String removeUserRequestedService_url = server + "/bargh/removeUserService.php";
     private final String sendUserRepairRequest_url = server + "/bargh/addUserRepairRequest.php";
     private final String getAllUsersRequests_url = server + "/bargh/getAllUsersRequests.php";
     private final String addService_url = server + "/bargh/addService.php";
+    private final String changeUserRepairRequestState_url = server + "/bargh/updateUserRepairRequest.php";
+    private final String updateUserData_url = server + "/bargh/UpdateUserData.php";
+    private final String uploadUserPic_url = server + "/bargh/UploadUserPic.php";
 
 
     private ApiService(Context context) {
@@ -54,15 +61,65 @@ public class ApiService {
         return instance;
     }
 
-    public void addService(Service service, OnAddingService onAddingService) {
+    public byte[] getFileDataFromDrawable(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
 
-        StringRequest request = new StringRequest(Request.Method.POST, addService_url
+
+    public void uploadUserPic(Bitmap bitmap, String userMobileNumber) {
+
+        //our custom volley request
+        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, uploadUserPic_url,
+                new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        try {
+                            JSONObject obj = new JSONObject(new String(response.data));
+                            Toast.makeText(context, obj.getString("message"), Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("user", userMobileNumber);
+                return params;
+            }
+
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = new HashMap<>();
+                long imagename = System.currentTimeMillis();
+                params.put("pic", new DataPart(imagename + ".png", getFileDataFromDrawable(bitmap)));
+                return params;
+            }
+        };
+
+        //adding the request to volley
+        Volley.newRequestQueue(context).add(volleyMultipartRequest);
+    }
+
+
+    public void updateUserData(User newUser, OnUserDataUpdate onUserDataUpdate) {
+
+        StringRequest request = new StringRequest(Request.Method.POST, updateUserData_url
                 , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    onAddingService.onResult(JsonParser.parsInsertResult(jsonObject));
+                    onUserDataUpdate.onResult(JsonParser.parsResult(jsonObject));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -72,7 +129,78 @@ public class ApiService {
             public void onErrorResponse(VolleyError error) {
                 Log.d(TAG, "onErrorResponse: addService: " + error.getMessage());
             }
-        }){
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<>();
+                params.put("mFirstName", newUser.getFirstName());
+                params.put("mLastName", newUser.getLastName());
+                params.put("mEmail", newUser.getEmail());
+                params.put("mMobileNumber", newUser.getMobileNumber());
+                params.put("mUserType", String.valueOf(newUser.getUserType()));
+                return params;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(18000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        Volley.newRequestQueue(Objects.requireNonNull(context)).add(request);
+    }
+
+    public void changeUserRepairRequestState(UserRepairRequest userRequest, OnChangingUserRepairRequest onChangingUserRepairRequest) {
+
+        StringRequest request = new StringRequest(Request.Method.POST,
+                changeUserRepairRequestState_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            onChangingUserRepairRequest.onStateChangeResult(JsonParser.parsResult(jsonObject));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+
+                error -> Log.e(TAG, "onErrorResponse: " + error.toString())) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<>();
+                params.put("mState", String.valueOf(userRequest.getState()));
+                params.put("mUser", userRequest.getUser());
+                params.put("mTimestamp", userRequest.getTimestamp());
+                return params;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(18000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        Volley.newRequestQueue(Objects.requireNonNull(context)).add(request);
+
+    }
+
+    public void addService(Service service, OnAddingService onAddingService) {
+
+        StringRequest request = new StringRequest(Request.Method.POST, addService_url
+                , new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    onAddingService.onResult(JsonParser.parsResult(jsonObject));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG, "onErrorResponse: addService: " + error.getMessage());
+            }
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> params = new HashMap<>();
@@ -309,8 +437,16 @@ public class ApiService {
 
     }
 
-    public  interface OnAddingService {
-        void onResult(HashMap<String,String> result);
+    public interface OnUserDataUpdate {
+        void onResult(HashMap<String, String> result);
+    }
+
+    public interface OnAddingService {
+        void onResult(HashMap<String, String> result);
+    }
+
+    public interface OnChangingUserRepairRequest {
+        void onStateChangeResult(HashMap<String, String> result);
     }
 
     public interface OnGettingAllUsersRequests {

@@ -1,155 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.fragment.UserProfileFragment"
-    android:layoutDirection="rtl">
+    android:layoutDirection="rtl"
+    tools:context=".view.fragment.UserProfileFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar_user_profile"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_user_profile"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/transparent"
-        android:fitsSystemWindows="true"
-        >
+        android:elevation="5dp"
+        app:title=" حساب کاربری"
+        app:titleTextColor="@color/app_titles_color"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_user_profile"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title=" حساب کاربری"
-            app:titleTextColor="@color/app_titles_color"
-            android:background="@color/transparent" />
-
-    </com.google.android.material.appbar.AppBarLayout>
 
     <ImageView
         android:id="@+id/img_header_user_profile_frag"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="250dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:src="@drawable/bs_header_color" />
 
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/img_avatar_user_profile_frag"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:src="@drawable/default_avatar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp" />
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:layout_below="@id/toolbar_user_profile"
+        android:src="@drawable/avatar"
+        app:shapeAppearanceOverlay="@style/circleImageView" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/img_set_avatar_user_profile_frag"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignStart="@id/img_avatar_user_profile_frag"
+        android:layout_alignTop="@id/img_avatar_user_profile_frag"
+        android:layout_marginEnd="@dimen/standard_margin_half"
+        android:background="@color/semi_transparent_black"
+        android:src="@drawable/ic_camera"
+        android:scaleType="centerInside"
+        app:shapeAppearanceOverlay="@style/circleImageView"/>
 
     <TextView
         android:id="@+id/tv_name_user_profile_frag"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/shabnam_bold"
-        tools:text="محمد حسینی نوه"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_below="@id/img_avatar_user_profile_frag"
+        android:layout_height="30dp"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/standard_margin_half"/>
+        android:textAlignment="center"
+        android:layout_below="@id/img_avatar_user_profile_frag"
+        tools:text="محمد حسینی نوه"
+        android:fontFamily="@font/shabnam_bold"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/large_font_size"
+        android:textStyle="bold"/>
 
 
     <TextView
         android:id="@+id/tv_mobile_number_user_profile_frag"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         tools:text="09123456789"
+        android:textAlignment="center"
         android:textSize="@dimen/large_font_size"
+        android:fontFamily="@font/shabnam_bold"
+        android:textColor="@color/colorAccent"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/tv_name_user_profile_frag"/>
+        android:layout_below="@id/tv_name_user_profile_frag"
+        android:layout_marginStart="@dimen/standard_margin_half"
+        android:layout_marginEnd="@dimen/standard_margin_half"/>
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/img_header_user_profile_frag"
         android:layout_above="@id/btn_update_user_profile"
-        android:padding="20dp">
+        android:layout_below="@id/img_header_user_profile_frag"
+        android:paddingStart="@dimen/standard_margin_2x"
+        android:paddingEnd="@dimen/standard_margin_2x">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/prompt_name"
-            android:layout_marginBottom="10dp"
-            app:boxBackgroundColor="@color/colorWhite">
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiet_first_name_user_profile"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/shabnam"
-                android:inputType="textPersonName"
-                tools:text="محمد"
-                android:drawableStart="@drawable/ic_profile"
-                android:drawablePadding="10dp"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="10dp"
+                android:hint="@string/prompt_name"
+                app:boxBackgroundColor="@color/colorWhite">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/prompt_lastname"
-            android:layout_marginBottom="10dp"
-            app:boxBackgroundColor="@color/colorWhite">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_first_name_user_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_profile"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/shabnam"
+                    android:inputType="textPersonName"
+                    tools:text="محمد" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiet_last_name_user_profile"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/shabnam"
-                android:inputType="textPersonName"
-                tools:text="حسینی نوه"
-                android:drawableStart="@drawable/ic_profile"
-                android:drawablePadding="10dp"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="10dp"
+                android:hint="@string/prompt_lastname"
+                app:boxBackgroundColor="@color/colorWhite">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/prompt_email"
-            android:layout_marginBottom="10dp"
-            app:boxBackgroundColor="@color/colorWhite">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_last_name_user_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_profile"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/shabnam"
+                    android:inputType="textPersonName"
+                    tools:text="حسینی نوه" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiet_email_user_profile"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Mohamadhosseini2121@gmail.com"
-                android:inputType="textEmailAddress"
-                android:textDirection="ltr"
-                android:drawableStart="@drawable/ic_email"
-                android:drawablePadding="10dp"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="10dp"
+                android:hint="@string/prompt_email"
+                app:boxBackgroundColor="@color/colorWhite">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/prompt_mobile_number_login"
-            android:layout_marginBottom="10dp"
-            app:boxBackgroundColor="@color/colorWhite">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_email_user_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_email"
+                    android:drawablePadding="10dp"
+                    android:inputType="textEmailAddress"
+                    android:textDirection="ltr"
+                    tools:text="Mohamadhosseini2121@gmail.com" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiet_mobile_number_user_profile"
+            <!--<com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                tools:text="09123456789"
-                android:textDirection="ltr"
-                android:drawableStart="@drawable/ic_phone_number"
-                android:drawablePadding="10dp"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="10dp"
+                android:hint="@string/prompt_mobile_number_login"
+                app:boxBackgroundColor="@color/colorWhite">
 
-    </LinearLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_mobile_number_user_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_phone_number"
+                    android:drawablePadding="10dp"
+                    android:inputType="number"
+                    android:textDirection="ltr"
+                    tools:text="09123456789" />
+            </com.google.android.material.textfield.TextInputLayout>-->
+
+        </LinearLayout>
 
     </ScrollView>
 
@@ -157,13 +175,13 @@
         android:id="@+id/btn_update_user_profile"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
-        android:text="@string/btn_update_user_profile_frag"
-        android:fontFamily="@font/shabnam_bold"
-        android:textSize="@dimen/button_text_size"
-        android:textStyle="bold"
-        android:textColor="@color/colorAccent"
         android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/standard_margin"/>
+        android:layout_margin="@dimen/standard_margin"
+        android:fontFamily="@font/shabnam_bold"
+        android:text="@string/btn_update_user_profile_frag"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/button_text_size"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>

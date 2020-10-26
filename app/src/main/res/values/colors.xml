@@ -11,4 +11,7 @@
     <color name="highlight_color">#FFE57F</color>
     <color name="colorGray">#87ACBF</color>
 
+    <color name="semi_transparent_black">#40000000</color>
+    <color name="semi_transparent_white">#40FFFFFF</color>
+
 </resources>

@@ -49,6 +49,7 @@ public class UserRepairRequest {
     @ColumnInfo(name = "timestamp")
     private String timestamp;
 
+    @Ignore
     public UserRepairRequest (String type, String info, @NonNull String user, int state , double lat , double lng){
 
         this.type = type;

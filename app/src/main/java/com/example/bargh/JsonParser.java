@@ -113,7 +113,7 @@ public class JsonParser {
         return products;
     }
 
-    public static HashMap<String,String> parsInsertResult (JSONObject jsonObject) {
+    public static HashMap<String,String> parsResult(JSONObject jsonObject) {
 
         HashMap<String, String> result = new HashMap<>();
         try {
