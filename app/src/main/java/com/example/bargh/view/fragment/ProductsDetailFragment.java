@@ -52,17 +52,23 @@ public class ProductsDetailFragment extends Fragment {
     }
 
 
-    public void setupToolbar () {
+    public void initToolbar () {
         ((AppCompatActivity)requireActivity()).setSupportActionBar(toolbar);
         if (((AppCompatActivity)requireActivity()).getSupportActionBar() != null){
             Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requireActivity().onBackPressed();
+            }
+        });
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.transparent));
         collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.app_titles_color));
     }
 
     public void initViews () {
-        setupToolbar();
+        initToolbar();
         infoTv.setLineSpacing(15);
         if (getArguments() != null) {
             ProductsDetailFragmentArgs args = ProductsDetailFragmentArgs.fromBundle(getArguments());

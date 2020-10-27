@@ -3,7 +3,6 @@ package com.example.bargh.view.fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -35,8 +34,16 @@ public class HomeFragment extends Fragment {
 
     private final String TAG = HomeFragment.class.getSimpleName();
 
-    @BindView(R.id.item_view_profile_bottom_sheet)
-    LinearLayout profileItemView;
+    // bottom sheet items
+    @BindView(R.id.bottom_sheet_item_view_profile)
+    LinearLayout profileBottomSheetView;
+    @BindView(R.id.bottom_sheet_item_view_contact_us)
+    LinearLayout contactUsBottomSheetView;
+    @BindView(R.id.bottom_sheet_item_view_about_us)
+    LinearLayout aboutUsBottomSheetView;
+    @BindView(R.id.bottom_sheet_item_view_logout)
+    LinearLayout logoutBottomSheetView;
+
     @BindView(R.id.viewPager_main_ac)
     ViewPager2 viewPager2;
     @BindView(R.id.tabLayout_main_ac)
@@ -49,8 +56,7 @@ public class HomeFragment extends Fragment {
     FloatingActionButton fab;
 
 
-    private BottomSheetBehavior bottomSheetBehavior;
-    private MainPagerAdapter pagerAdapter;
+    private BottomSheetBehavior<View> bottomSheetBehavior;
     public static User user = null;
     public static boolean userIsAdmin = false;
 
@@ -71,21 +77,16 @@ public class HomeFragment extends Fragment {
             userIsAdmin = true;
 
         init();
-        profileItemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_userProfileFragment);
-            }
-        });
 
     }
 
     public void init() {
 
+        initBottomSheet();
         initBottomAppBar();
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
-        pagerAdapter = new MainPagerAdapter(getChildFragmentManager(), getLifecycle());
+        MainPagerAdapter pagerAdapter = new MainPagerAdapter(getChildFragmentManager(), getLifecycle());
         if (userIsAdmin) {
             pagerAdapter.addFragment(new ReviewRequestsFragment());
             pagerAdapter.addFragment(new ProductsFragment());
@@ -105,13 +106,45 @@ public class HomeFragment extends Fragment {
     private void initBottomAppBar() {
         //set bottom bar to Action bar as it is similar like Toolbar
         ((AppCompatActivity) requireActivity()).setSupportActionBar(bottomAppBar);
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
 
         //click event over navigation menu like back arrow or hamburger icon
         bottomAppBar.setNavigationOnClickListener(view -> {
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         });
 
+    }
+
+    private void initBottomSheet () {
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
+        profileBottomSheetView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_userProfileFragment);
+            }
+        });
+
+        contactUsBottomSheetView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_contactUsFragment);
+            }
+        });
+
+        aboutUsBottomSheetView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_aboutUsFragment);
+            }
+        });
+
+        logoutBottomSheetView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppDatabase.getInstance(requireContext()).userDao().deleteAll();
+                AppDatabase.getInstance(requireContext()).userRepairRequestDao().wipeTable();
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_userProfileFragment);
+            }
+        });
     }
 
     public void initTabLayout(ViewPager2 viewPager2, MainPagerAdapter pagerAdapter) {

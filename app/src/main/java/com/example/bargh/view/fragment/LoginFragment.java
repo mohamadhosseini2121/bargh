@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -27,6 +28,7 @@ import com.example.bargh.JsonParser;
 import com.example.bargh.R;
 import com.example.bargh.db.AppDatabase;
 import com.example.bargh.db.entity.User;
+import com.example.bargh.view.activity.MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -83,12 +85,13 @@ public class LoginFragment extends Fragment {
         });
 
         mSignInButton.setOnClickListener((View v) -> {
+            hideKeyboard();
             attemptLogin();
-            //Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homeFragment);
 
         });
 
         mSignUpButton.setOnClickListener((View v) -> {
+            hideKeyboard();
             Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment);
 
         });
@@ -191,6 +194,17 @@ public class LoginFragment extends Fragment {
                 }
             }
         });
+    }
+
+    public void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(MainActivity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = requireActivity().getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(requireActivity());
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
 

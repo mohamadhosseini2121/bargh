@@ -67,17 +67,7 @@ public class AddServiceFragment extends Fragment {
     }
 
     public void init () {
-        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
-        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                requireActivity().onBackPressed();
-            }
-        });
+        initToolbar();
         apiService = ApiService.getInstance(requireContext());
         addServiceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +89,20 @@ public class AddServiceFragment extends Fragment {
                         }
                     }
                 });
+            }
+        });
+    }
+
+    private void initToolbar() {
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requireActivity().onBackPressed();
             }
         });
     }

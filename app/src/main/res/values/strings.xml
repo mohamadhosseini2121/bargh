@@ -60,8 +60,10 @@
     <string name="info_title_review_request">توضیحات</string>
     <string name="change_status_btn_review_request">تغییر وضعیت</string>
     <string name="call_btn_review_request">تماس</string>
-
-
+    <string name="bs_item_profile_">حساب کاربری</string>
+    <string name="bs_item_contact_us">تماس با ما</string>
+    <string name="bs_item_about_us">درباره ما</string>
+    <string name="bs_item_logout">خروج از حساب کاربری</string>
 
 
 </resources>

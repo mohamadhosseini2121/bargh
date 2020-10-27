@@ -233,7 +233,7 @@ public class ReviewRequestsDetailFragment extends Fragment {
         }
     }
 
-    public void initToolbar() {
+    private void initToolbar() {
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         if (actionBar != null) {

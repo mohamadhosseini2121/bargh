@@ -19,83 +19,113 @@
 
 
     <LinearLayout
-        android:id="@+id/item_view_profile_bottom_sheet"
+        android:id="@+id/bottom_sheet_item_view_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="5"
         android:clickable="true"
         android:focusable="true"
         android:background="?attr/selectableItemBackground">
 
         <ImageView
-            android:id="@+id/profile_image_bs"
-            android:layout_width="wrap_content"
+            android:id="@+id/bs_image_profile"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
             android:paddingTop="@dimen/standard_margin_2x"
             android:paddingBottom="@dimen/standard_margin_2x"
-            android:src="@drawable/ic_profile" />
+            android:src="@drawable/ic_profile"
+            android:contentDescription="@string/app_name" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="4"
-            android:text="حساب کاربری" />
+            android:textSize="@dimen/normal_font_size"
+            android:fontFamily="@font/shabnam_bold"
+            android:textColor="@color/colorAccent"
+            android:text="@string/bs_item_profile_" />
     </LinearLayout>
 
-
     <LinearLayout
-        android:id="@+id/item_view_contact_us_bottom_sheet"
+        android:id="@+id/bottom_sheet_item_view_contact_us"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="5">
 
         <ImageView
-            android:id="@+id/contact_us_image_bs"
-            android:layout_width="wrap_content"
+            android:id="@+id/bs_image_contact_us"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
             android:paddingTop="@dimen/standard_margin_2x"
             android:paddingBottom="@dimen/standard_margin_2x"
-            android:src="@drawable/ic_contact_us" />
+            android:src="@drawable/ic_contact_us"
+            android:contentDescription="@string/app_name" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/normal_font_size"
+            android:fontFamily="@font/shabnam_bold"
+            android:textColor="@color/colorAccent"
             android:layout_gravity="center"
-            android:layout_weight="4"
-            android:text="تماس با ما" />
+            android:text="@string/bs_item_contact_us" />
     </LinearLayout>
 
-
     <LinearLayout
-        android:id="@+id/item_view_about_us_bottom_sheet"
+        android:id="@+id/bottom_sheet_item_view_about_us"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="5">
 
         <ImageView
-            android:id="@+id/about_us_image_bs"
-            android:layout_width="wrap_content"
+            android:id="@+id/bs_image_about_us"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
             android:paddingTop="@dimen/standard_margin_2x"
             android:paddingBottom="@dimen/standard_margin_2x"
-            android:src="@drawable/ic_about_us" />
+            android:src="@drawable/ic_about_us"
+            android:contentDescription="@string/app_name" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/normal_font_size"
+            android:fontFamily="@font/shabnam_bold"
+            android:textColor="@color/colorAccent"
+            android:layout_gravity="center"
+            android:text="@string/bs_item_about_us" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_sheet_item_view_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <ImageView
+            android:id="@+id/bs_image_logout_admin"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="4"
-            android:text="درباره ما" />
+            android:paddingTop="@dimen/standard_margin_2x"
+            android:paddingBottom="@dimen/standard_margin_2x"
+            android:src="@drawable/ic_logout" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="@dimen/normal_font_size"
+            android:textColor="@color/colorAccent"
+            android:fontFamily="@font/shabnam_bold"
+            android:text="@string/bs_item_logout" />
     </LinearLayout>
+
 
 </LinearLayout>

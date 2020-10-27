@@ -16,12 +16,14 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import com.example.bargh.ApiService;
 import com.example.bargh.R;
 import com.example.bargh.db.AppDatabase;
 import com.example.bargh.db.entity.User;
+import com.example.bargh.view.activity.MainActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -66,6 +68,7 @@ public class RegisterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         mSignUpBtn.setOnClickListener((View v) -> {
+            hideKeyboard();
             attemptRegister();
 
         });
@@ -205,6 +208,17 @@ public class RegisterFragment extends Fragment {
 
     private boolean isRePasswordValid(String password, String rePassword) {
         return password.equals(rePassword);
+    }
+
+    public void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(MainActivity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = requireActivity().getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(requireActivity());
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     /**

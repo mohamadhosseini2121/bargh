@@ -46,7 +46,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class LocationFragment extends Fragment {
 
-
     private final String TAG = LocationFragment.class.getSimpleName();
     private GoogleMap map;
     private CameraPosition cameraPosition;
@@ -80,17 +79,11 @@ public class LocationFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
 
-        // [START_EXCLUDE silent]
-        // [START maps_current_place_on_create_save_instance_state]
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
-        // [END maps_current_place_on_create_save_instance_state]
-        // [END_EXCLUDE]
-
-
         // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext());
 
@@ -188,14 +181,22 @@ public class LocationFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_location, container, false);
         ButterKnife.bind(this, view);
+        initToolbar();
+        return view;
+    }
 
+    private void initToolbar() {
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
-        return view;
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requireActivity().onBackPressed();
+            }
+        });
     }
 
     @Override
