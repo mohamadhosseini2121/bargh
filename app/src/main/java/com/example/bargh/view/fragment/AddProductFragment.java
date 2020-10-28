@@ -37,7 +37,6 @@ public class AddProductFragment extends Fragment {
         initToolbar();
         return view;
     }
-
     private void initToolbar() {
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
@@ -51,4 +50,5 @@ public class AddProductFragment extends Fragment {
             }
         });
     }
+
 }

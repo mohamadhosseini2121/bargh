@@ -11,17 +11,21 @@ import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import com.example.bargh.R;
 import com.example.bargh.adapter.MainPagerAdapter;
 import com.example.bargh.db.AppDatabase;
 import com.example.bargh.db.entity.User;
+import com.example.bargh.view.activity.MainActivity;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -65,6 +69,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
+        hideKeyboard(view);
         return view;
     }
 
@@ -92,7 +97,7 @@ public class HomeFragment extends Fragment {
             pagerAdapter.addFragment(new ProductsFragment());
             pagerAdapter.addFragment(new AdminServicesFragment());
 
-        }else {
+        } else {
             pagerAdapter.addFragment(new ServicesFragment());
             pagerAdapter.addFragment(new ProductsFragment());
         }
@@ -102,6 +107,12 @@ public class HomeFragment extends Fragment {
 
     }
 
+    public void hideKeyboard(View view) {
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+        }
+    }
 
     private void initBottomAppBar() {
         //set bottom bar to Action bar as it is similar like Toolbar
@@ -114,7 +125,7 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void initBottomSheet () {
+    private void initBottomSheet() {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
         profileBottomSheetView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,7 +179,8 @@ public class HomeFragment extends Fragment {
                 }
 
                 @Override
-                public void onTabReselected(TabLayout.Tab tab) {}
+                public void onTabReselected(TabLayout.Tab tab) {
+                }
             });
 
             TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
@@ -224,7 +236,8 @@ public class HomeFragment extends Fragment {
                 }
 
                 @Override
-                public void onTabReselected(TabLayout.Tab tab) {}
+                public void onTabReselected(TabLayout.Tab tab) {
+                }
             });
             TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
                 int tabIconColor = ContextCompat.getColor(requireContext(), R.color.colorWhite);

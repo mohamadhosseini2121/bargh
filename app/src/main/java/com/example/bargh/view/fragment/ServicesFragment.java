@@ -1,5 +1,6 @@
 package com.example.bargh.view.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.example.bargh.ApiService;
@@ -43,7 +45,7 @@ public class ServicesFragment extends Fragment implements RequestedServicesAdapt
     TextView emptyTv;
     private FloatingActionButton fab;
     private BottomAppBar bottomAppBar;
-    private BottomSheetBehavior bottomSheetBehavior;
+    private BottomSheetBehavior<View> bottomSheetBehavior;
 
 
     private List<UserRepairRequest> userRepairRequests = new ArrayList<>();
@@ -62,6 +64,7 @@ public class ServicesFragment extends Fragment implements RequestedServicesAdapt
         view = inflater.inflate(R.layout.fragment_services, container, false);
         ButterKnife.bind(this, view);
         initViews();
+        hideKeyboard(view);
         return view;
     }
 
@@ -138,6 +141,13 @@ public class ServicesFragment extends Fragment implements RequestedServicesAdapt
             }
         });
 
+    }
+
+    public void hideKeyboard(View view) {
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+        }
     }
 
 

@@ -1,14 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.AboutUsFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.fragment.AboutUsFragment"
+    android:layoutDirection="rtl">
 
-    <!-- TODO: Update blank fragment layout -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_about_us"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="درباره ما"
+        app:titleTextColor="@color/app_titles_color"
+        android:background="@color/colorPrimary" />
+
+    <ImageView
+        android:id="@+id/image_logo_about_us"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/ic_logo"
+        android:adjustViewBounds="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/toolbar_about_us"
+        android:layout_margin="@dimen/standard_margin_2x"/>
+
     <TextView
+        android:id="@+id/tv_title_about_us"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/large_font_size"
+        android:fontFamily="@font/shabnam_bold"
+        android:text="اورژانس و تاسیسات برق رفسنجان"
+        android:layout_below="@id/image_logo_about_us"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorAccent"/>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_below="@id/tv_title_about_us"
+        android:padding="@dimen/standard_margin_2x">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد."
+        android:fontFamily="@font/shabnam"
+        android:textSize="@dimen/normal_font_size"/>
 
-</FrameLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

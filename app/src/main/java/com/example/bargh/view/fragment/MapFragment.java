@@ -57,9 +57,9 @@ public class MapFragment extends Fragment {
 
 
 
-    public void placeMarker (LatLng position) {
+    public void placeMarker (LatLng position, String markerTitle) {
         if (map != null) {
-            map.addMarker(new MarkerOptions().position(position).title("موقعیت درخواست"));
+            map.addMarker(new MarkerOptions().position(position).title(markerTitle));
             map.moveCamera(CameraUpdateFactory.newLatLng(position));
             map.animateCamera(CameraUpdateFactory.zoomTo(14));
         }

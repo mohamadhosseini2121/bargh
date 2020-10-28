@@ -2,6 +2,9 @@ package com.example.bargh.view.fragment;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,7 +13,13 @@ import android.view.ViewGroup;
 
 import com.example.bargh.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ContactUsFragment extends Fragment {
+
+    @BindView(R.id.toolbar_contact_us)
+    Toolbar toolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,6 +31,23 @@ public class ContactUsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contact_us, container, false);
+        View view = inflater.inflate(R.layout.fragment_contact_us, container, false);
+        ButterKnife.bind(this,view);
+        initToolbar();
+        return view;
+    }
+
+    private void initToolbar() {
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requireActivity().onBackPressed();
+            }
+        });
     }
 }
