@@ -10,8 +10,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.bargh.R;
+import com.google.android.material.textfield.TextInputEditText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +25,17 @@ public class AddProductFragment extends Fragment {
 
     @BindView(R.id.toolbar_add_product)
     Toolbar toolbar;
+    @BindView(R.id.tv_empty_view_pager_add_product)
+    TextView emptyTv;
+    @BindView(R.id.tiet_name_add_product)
+    TextInputEditText nameEt;
+    @BindView(R.id.tiet_price_add_product)
+    TextInputEditText priceEt;
+    @BindView(R.id.tiet_info_add_product)
+    TextInputEditText infoEt;
+    @BindView(R.id.btn_submit_add_product)
+    Button addProductBtn;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

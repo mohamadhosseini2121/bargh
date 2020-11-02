@@ -3,17 +3,16 @@
     android:opacity="opaque"> <!-- android:opacity="opaque" should be here -->
     <item>
         <!--this is your background, you can use color, gradient etc.-->
-        <color android:color="@color/colorPrimary"/>
-        <shape>
-              <gradient
-                   android:angle="315"
-                   android:endColor="#F4511E"
-                   android:startColor="#FFB300"
-                   android:type="linear"/>
-        </shape>
+        <color android:color="@color/colorWhite"/>
+
     </item>
-    <item>
+    <item android:left="500dp"
+        android:right="500dp"
+        android:top="500dp"
+        android:bottom="500dp">
         <bitmap android:src="@drawable/ic_logo"
             android:gravity="center"/>
+
     </item>
+
 </layer-list>

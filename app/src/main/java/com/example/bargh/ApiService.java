@@ -50,8 +50,6 @@ public class ApiService {
     private final String updateUserData_url = server + "/bargh/UpdateUserData.php";
     private final String uploadUserPic_url = server + "/bargh/UploadUserPic.php";
 
-    private static final String ROOT_URL = "http://192.168.1.9/MyApi/Api.php?apicall=";
-    public static final String UPLOAD_URL = ROOT_URL + "uploadpic";
 
 
     private ApiService(Context context) {
@@ -73,17 +71,14 @@ public class ApiService {
 
     public void uploadUserPic(Bitmap bitmap, String userMobileNumber) {
 
-        //getting the tag from the edittext
-        final String tags = "victory";
-
         //our custom volley request
-        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, UPLOAD_URL,
+        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, uploadUserPic_url,
                 new Response.Listener<NetworkResponse>() {
                     @Override
                     public void onResponse(NetworkResponse response) {
                         try {
                             JSONObject obj = new JSONObject(new String(response.data));
-                            Toast.makeText(context, obj.getString("message"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, obj.getString("content"), Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -96,22 +91,13 @@ public class ApiService {
                     }
                 }) {
 
-            /*
-             * If you want to add more parameters with the image
-             * you can do it here
-             * here we have only one parameter with the image
-             * which is tags
-             * */
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("tags", tags);
+                params.put("user", userMobileNumber);
                 return params;
             }
 
-            /*
-             * Here we are passing image by renaming it with a unique name
-             * */
             @Override
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = new HashMap<>();

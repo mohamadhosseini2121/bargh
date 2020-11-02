@@ -26,8 +26,7 @@ public class AboutUsFragment extends Fragment {
 
     @BindView(R.id.toolbar_about_us)
     Toolbar toolbar;
-    @BindView(R.id.custom_scrollView_contact_us)
-    CustomScrollView customScrollView;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,27 +41,9 @@ public class AboutUsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_about_us, container, false);
         ButterKnife.bind(this,view);
         initToolbar();
-        initOurLocationMap();
         return view;
     }
 
-    private void initOurLocationMap() {
-        MapFragment mapFragment = new MapFragment(new MapFragment.OnMapChanges() {
-            @Override
-            public void onMapReady(MapFragment mapFragment) {
-                LatLng position = new LatLng(30.4158683, 55.9964128);
-                mapFragment.placeMarker(position, "اورژانس برق رفسنجان");
-                if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                mapFragment.map.setMyLocationEnabled(false);
-                customScrollView.requestDisallowInterceptTouchEvent(true);
-            }
-        });
-        this.getChildFragmentManager().beginTransaction()
-                .add(R.id.fragment_container_our_location_contact_us,
-                        mapFragment).commit();
-    }
 
     private void initToolbar() {
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);

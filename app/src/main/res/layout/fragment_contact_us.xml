@@ -1,99 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.bargh.CustomScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/custom_scrollView_contact_us"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.fragment.ContactUsFragment"
-    android:layoutDirection="rtl">
+    android:layoutDirection="rtl"
+    tools:context=".view.fragment.ContactUsFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_contact_us"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:title="ارتباط با ما"
-        app:titleTextColor="@color/app_titles_color"
-        android:background="@color/colorPrimary" />
+        android:layout_height="match_parent">
 
-    <com.example.bargh.CustomScrollView
-        android:id="@+id/custom_scrollView_contact_us"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar_contact_us"
-        android:layout_margin="@dimen/standard_margin">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_contact_us"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:title="ارتباط با ما"
+            app:titleTextColor="@color/app_titles_color" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container_our_location_contact_us"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        tools:background="@color/colorAccent"
-        android:layout_marginBottom="@dimen/standard_margin"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_address_contact_us"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:boxStrokeWidth="0dp"
-        android:layout_below="@id/fragment_container_our_location_contact_us"
-        app:boxBackgroundColor="@color/colorWhite"
-        app:startIconDrawable="@drawable/ic_location">
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_container_our_location_contact_us"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_below="@id/toolbar_contact_us"
+            android:layout_margin="@dimen/standard_margin"
+            android:layout_marginBottom="@dimen/standard_margin"
+            tools:background="@color/colorAccent" />
 
-        <EditText
-            android:id="@+id/et_address_contact_us"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_address_contact_us"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/shabnam"
-            android:textSize="@dimen/normal_font_size"
-            android:hint="آدرس"
-            android:text="رفسنجان _ خیابان ابوذر _ روبروی کوچه 35"
-            android:inputType="none"/>
+            android:layout_below="@id/fragment_container_our_location_contact_us"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
+            app:boxBackgroundColor="@color/colorWhite"
+            app:boxStrokeWidth="0dp"
+            app:startIconDrawable="@drawable/ic_location">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:id="@+id/et_address_contact_us"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/shabnam"
+                android:hint="آدرس"
+                android:inputType="none"
+                android:text="رفسنجان _ خیابان چمران _ روبروی اداره برق"
+                android:textSize="@dimen/normal_font_size" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_phone_number_contact_us"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:boxStrokeWidth="0dp"
-        android:layout_below="@id/til_address_contact_us"
-        app:boxBackgroundColor="@color/colorWhite"
-        app:startIconDrawable="@drawable/ic_phone">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/et_phone_number_contact_us"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_phone_number_contact_us"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/shabnam"
-            android:textSize="@dimen/normal_font_size"
-            android:hint="تلفن"
-            android:text="34252000"
-            android:inputType="none"
-            tools:ignore="TextFields" />
+            android:layout_below="@id/til_address_contact_us"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
+            app:boxBackgroundColor="@color/colorWhite"
+            app:boxStrokeWidth="0dp"
+            app:startIconDrawable="@drawable/ic_phone">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:id="@+id/et_phone_number_contact_us"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/shabnam"
+                android:hint="تلفن"
+                android:inputType="none"
+                android:text="34252000"
+                android:textSize="@dimen/normal_font_size"
+                tools:ignore="TextFields" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_email_contact_us"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:boxStrokeWidth="0dp"
-        android:layout_below="@id/til_phone_number_contact_us"
-        app:boxBackgroundColor="@color/colorWhite"
-        app:startIconDrawable="@drawable/ic_email">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/et_email_contact_us"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_email_contact_us"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/shabnam"
-            android:textSize="@dimen/normal_font_size"
-            android:hint="آدرس ایمیل"
-            android:text="RafsanjanEE@Gmail.com"
-            android:inputType="none"
-            tools:ignore="TextFields" />
+            android:layout_below="@id/til_phone_number_contact_us"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
+            app:boxBackgroundColor="@color/colorWhite"
+            app:boxStrokeWidth="0dp"
+            app:startIconDrawable="@drawable/ic_email">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:id="@+id/et_email_contact_us"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/shabnam"
+                android:hint="آدرس ایمیل"
+                android:inputType="none"
+                android:text="RafsanjanEE@Gmail.com"
+                android:textSize="@dimen/normal_font_size"
+                tools:ignore="TextFields" />
 
-    </com.example.bargh.CustomScrollView>
+        </com.google.android.material.textfield.TextInputLayout>
 
-</RelativeLayout>
+
+    </RelativeLayout>
+
+
+</com.example.bargh.CustomScrollView>

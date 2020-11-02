@@ -1,19 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layoutDirection="rtl"
     tools:context=".view.fragment.AddProductFragment">
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_add_product"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
         app:title="محصول"
-        app:titleTextColor="@color/app_titles_color"
-        android:background="@color/colorPrimary" />
+        app:titleTextColor="@color/app_titles_color" />
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_add_product"
+        android:layout_margin="@dimen/standard_margin">
 
-</FrameLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager_add_product"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_marginBottom="@dimen/standard_margin"/>
+
+        <TextView
+            android:id="@+id/tv_empty_view_pager_add_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/viewPager_add_product"
+            android:layout_alignBottom="@id/viewPager_add_product"
+            android:layout_alignEnd="@id/viewPager_add_product"
+            android:layout_alignTop="@id/viewPager_add_product"
+            android:text="@string/empty_image_view_pager_add_product"
+            android:gravity="center"
+            android:textAlignment="gravity"
+            android:background="@android:color/darker_gray"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/btn_add_image_add_product"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignStart="@id/viewPager_add_product"
+            android:layout_alignBottom="@id/viewPager_add_product"
+            android:background="@color/colorPrimary"
+            android:fontFamily="@font/shabnam_bold"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_add_photo"
+            android:textSize="@dimen/button_text_size"
+            app:shapeAppearanceOverlay="@style/oneCornerRoundedImageView"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_name_add_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/viewPager_add_product"
+            app:boxBackgroundColor="@color/colorWhite"
+            app:startIconDrawable="@drawable/ic_box">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_name_add_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/shabnam"
+                android:hint="@string/item_product_name"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="@dimen/normal_font_size" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_price_add_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/til_name_add_product"
+            app:boxBackgroundColor="@color/colorWhite"
+            app:startIconDrawable="@drawable/ic_price">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_price_add_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/shabnam"
+                android:hint="@string/item_product_price"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="@dimen/normal_font_size" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/til_price_add_product"
+            android:layout_above="@+id/btn_submit_add_product"
+            android:layout_marginBottom="@dimen/standard_margin">
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_info_add_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/colorWhite"
+                app:startIconDrawable="@drawable/ic_about_us">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_info_add_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/shabnam"
+                    android:hint="@string/item_product_info"
+                    android:inputType="text"
+                    android:textSize="@dimen/normal_font_size" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/btn_submit_add_product"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_alignParentBottom="true"
+            android:fontFamily="@font/shabnam_bold"
+            android:text="افزودن محصول"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/button_text_size" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

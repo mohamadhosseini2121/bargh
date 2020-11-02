@@ -120,7 +120,7 @@ public class HomeFragment extends Fragment {
 
         //click event over navigation menu like back arrow or hamburger icon
         bottomAppBar.setNavigationOnClickListener(view -> {
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
         });
 
     }
